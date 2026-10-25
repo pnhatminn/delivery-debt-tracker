@@ -1,0 +1,1997 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Phụ tùng Hữu Thuỳ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: app shell — left rail ≥ 900px, bottom tab bar on phones; content column max 1160px. */
+:root {
+  --bg: #F2F4F7;
+  --surface: #FFFFFF;
+  --surface-2: #F7F9FB;
+  --line: #DDE3EA;
+  --line-strong: #C3CCD8;
+  --ink: #0F1B2D;
+  --ink-2: #435064;
+  --ink-3: #697587;
+  --btn-bg: #0F2942;
+  --btn-ink: #FFFFFF;
+  --btn-hover: #1C3B5E;
+  --accent: #2449A8;
+  --accent-soft: #E8EEFB;
+  --debt: #B42318;
+  --debt-soft: #FDEDEB;
+  --paid: #137A3B;
+  --paid-soft: #E5F4EA;
+  --wait: #A8460A;
+  --wait-soft: #FDF0E2;
+  --meter: #E6EAF0;
+  --panel: #0F2942;
+  --panel-2: #1A3A5C;
+  --panel-ink: #EEF3F9;
+  --panel-sub: #AFC0D4;
+  --scrim: rgba(15, 27, 45, .45);
+  --shadow: 0 1px 2px rgba(15, 27, 45, .05), 0 2px 8px rgba(15, 27, 45, .04);
+  --font: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --r: 10px;
+  --r-sm: 7px;
+  --side: 236px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D131B; --surface: #151D28; --surface-2: #1A2330; --line: #263242; --line-strong: #3A4859;
+    --ink: #E6EBF2; --ink-2: #B3BECC; --ink-3: #8592A3;
+    --btn-bg: #9DBBF0; --btn-ink: #0A1626; --btn-hover: #B6CDF5;
+    --accent: #9DBBF0; --accent-soft: #1D2B44;
+    --debt: #F4867C; --debt-soft: #3A1E1D; --paid: #5BCB8A; --paid-soft: #16301F; --wait: #F2A962; --wait-soft: #3A2817;
+    --meter: #263242; --scrim: rgba(0, 0, 0, .6);
+    --panel: #0B1C2E; --panel-2: #132A42;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D131B; --surface: #151D28; --surface-2: #1A2330; --line: #263242; --line-strong: #3A4859;
+  --ink: #E6EBF2; --ink-2: #B3BECC; --ink-3: #8592A3;
+  --btn-bg: #9DBBF0; --btn-ink: #0A1626; --btn-hover: #B6CDF5;
+  --accent: #9DBBF0; --accent-soft: #1D2B44;
+  --debt: #F4867C; --debt-soft: #3A1E1D; --paid: #5BCB8A; --paid-soft: #16301F; --wait: #F2A962; --wait-soft: #3A2817;
+  --meter: #263242; --scrim: rgba(0, 0, 0, .6);
+    --panel: #0B1C2E; --panel-2: #132A42;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { background: var(--bg); }
+body {
+  margin: 0; color: var(--ink); font-family: var(--font); font-size: 15px; line-height: 1.5;
+  -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+a { color: var(--accent); }
+h1, h2, h3 { margin: 0; line-height: 1.25; text-wrap: balance; }
+.num { font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
+.mono { font-family: var(--mono); font-size: .86em; letter-spacing: -.01em; }
+.muted { color: var(--ink-3); }
+.sub { color: var(--ink-3); font-size: 13px; }
+.debt { color: var(--debt); }
+.paid { color: var(--paid); }
+.wait { color: var(--wait); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ic { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- shell ---------- */
+.side {
+  position: fixed; inset: 0 auto 0 0; width: var(--side); background: var(--surface); border-right: 1px solid var(--line);
+  display: flex; flex-direction: column; padding: calc(16px + env(safe-area-inset-top, 0px)) 12px 16px max(12px, env(safe-area-inset-left, 0px)); z-index: 20;
+}
+.brand { display: flex; align-items: center; gap: 10px; padding: 4px 8px 18px; }
+.brand-mark {
+  width: 38px; height: 38px; border-radius: 9px; background: var(--btn-bg); color: var(--btn-ink);
+  display: grid; place-items: center; font-weight: 700; font-size: 14px; letter-spacing: .02em;
+}
+.brand-name { font-weight: 600; font-size: 14.5px; line-height: 1.25; }
+.brand-sub { font-size: 12.5px; color: var(--ink-3); }
+.nav { display: flex; flex-direction: column; gap: 2px; }
+.nav a {
+  display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--r-sm); color: var(--ink-2);
+  text-decoration: none; font-weight: 500;
+}
+.nav a:hover { background: var(--surface-2); color: var(--ink); }
+.nav a[aria-current="page"] { background: var(--accent-soft); color: var(--accent); }
+.nav .count { margin-left: auto; font-size: 12px; font-weight: 600; background: var(--wait-soft); color: var(--wait); border-radius: 99px; padding: 1px 8px; }
+.side-foot { margin-top: auto; padding: 12px 8px 0; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-3); }
+
+.main { margin-left: var(--side); min-width: 0; }
+.view {
+  max-width: 1160px; margin: 0 auto;
+  padding-block: 24px 64px;
+  padding-left: max(28px, env(safe-area-inset-left, 0px)); padding-right: max(28px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 18px;
+}
+.tabbar { display: none; }
+
+@media (max-width: 899px) {
+  .side { display: none; }
+  .main { margin-left: 0; }
+  .view {
+    padding-block: 14px calc(96px + env(safe-area-inset-bottom, 0px));
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+    gap: 14px;
+  }
+  .tabbar {
+    display: grid; grid-template-columns: repeat(5, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+    background: var(--surface); border-top: 1px solid var(--line);
+    padding: 6px max(6px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(6px, env(safe-area-inset-left, 0px));
+  }
+  .tabbar a {
+    position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 2px; border-radius: 8px;
+    color: var(--ink-3); text-decoration: none; font-size: 11.5px; font-weight: 500; min-height: 48px; justify-content: center;
+  }
+  .tabbar a[aria-current="page"] { color: var(--accent); background: var(--accent-soft); }
+  .tabbar .dot { position: absolute; top: 4px; left: 50%; margin-left: 8px; min-width: 17px; height: 17px; padding: 0 5px; border-radius: 99px; background: var(--wait); color: var(--surface); font-size: 10.5px; font-weight: 700; display: grid; place-items: center; }
+  body.focus .tabbar { display: none; }
+  body.focus .view { padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* ---------- page header ---------- */
+.ph { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
+.ph-l { display: flex; align-items: flex-start; gap: 10px; min-width: 0; }
+.ph h1 { font-size: 24px; font-weight: 700; letter-spacing: -.015em; }
+.eyebrow { font-size: 13px; color: var(--ink-3); font-weight: 500; margin-bottom: 2px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ph-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.back { margin-top: 2px; }
+@media (max-width: 899px) {
+  .ph { align-items: flex-start; }
+  .ph h1 { font-size: 20px; }
+  .ph-actions { width: 100%; }
+  .ph-actions .btn { flex: 1 1 auto; }
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 14px;
+  border-radius: var(--r-sm); border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
+  font-weight: 600; font-size: 14.5px; cursor: pointer; text-decoration: none; white-space: nowrap;
+}
+.btn:hover { background: var(--surface-2); }
+.btn.primary { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-ink); }
+.btn.primary:hover { background: var(--btn-hover); border-color: var(--btn-hover); }
+.btn.danger { color: var(--debt); border-color: var(--line-strong); }
+.btn.danger-fill { background: var(--debt); border-color: var(--debt); color: var(--surface); }
+.btn.ghost { border-color: transparent; background: transparent; }
+.btn.ghost:hover { background: var(--surface-2); }
+.btn.sm { min-height: 34px; padding: 0 10px; font-size: 13.5px; }
+.btn.lg { min-height: 50px; font-size: 16px; padding: 0 20px; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+.icon-btn {
+  display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: var(--r-sm); border: 1px solid transparent;
+  background: transparent; color: var(--ink-2); cursor: pointer; flex: none;
+}
+.icon-btn:hover { background: var(--surface-2); color: var(--ink); }
+.icon-btn.bordered { border-color: var(--line-strong); background: var(--surface); }
+.icon-btn[disabled] { opacity: .35; cursor: default; }
+
+/* ---------- surfaces ---------- */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); min-width: 0; }
+.card-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.card-h h2 { font-size: 16px; font-weight: 600; }
+.card-b { padding: 16px 18px; }
+.card-f { padding: 12px 18px; border-top: 1px solid var(--line); background: var(--surface-2); border-radius: 0 0 var(--r) var(--r); }
+@media (max-width: 899px) { .card-h, .card-b, .card-f { padding-left: 14px; padding-right: 14px; } }
+
+.grid-2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+.grid-73 { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 18px; }
+@media (max-width: 899px) { .grid-2, .grid-73 { grid-template-columns: minmax(0, 1fr); gap: 14px; } }
+
+/* ---------- KPI ---------- */
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.kpis.k5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.kpi { padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.kpi .lbl { font-size: 13px; color: var(--ink-2); font-weight: 500; }
+.kpi .val { font-size: 23px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; white-space: nowrap; line-height: 1.25; }
+.kpi .val small { font-size: 14px; font-weight: 600; color: var(--ink-3); letter-spacing: 0; }
+.kpi .note { font-size: 13px; color: var(--ink-3); }
+@media (max-width: 1100px) { .kpis.k5 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 899px) {
+  .kpis, .kpis.k5 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .kpi { padding: 12px; }
+  .kpi .val { font-size: 19px; }
+}
+@media (max-width: 380px) { .kpi .val { font-size: 17px; } }
+
+/* ---------- chips ---------- */
+.chip {
+  display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 9px; border-radius: 99px; font-size: 12.5px; font-weight: 600;
+  background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); white-space: nowrap;
+}
+.chip.debt { background: var(--debt-soft); color: var(--debt); border-color: transparent; }
+.chip.paid { background: var(--paid-soft); color: var(--paid); border-color: transparent; }
+.chip.wait { background: var(--wait-soft); color: var(--wait); border-color: transparent; }
+.chip.info { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.area {
+  display: inline-grid; place-items: center; min-width: 34px; height: 22px; padding: 0 6px; border-radius: 5px; font-size: 12px; font-weight: 700;
+  background: var(--accent-soft); color: var(--accent); letter-spacing: .02em;
+}
+.code { font-family: var(--mono); font-size: 12.5px; font-weight: 600; color: var(--ink-2); background: var(--surface-2); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; white-space: nowrap; text-decoration: none; }
+a.code:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- meter ---------- */
+.meter { height: 6px; border-radius: 99px; background: var(--meter); overflow: hidden; }
+.meter > i { display: block; height: 100%; border-radius: inherit; background: var(--accent); }
+.meter.warn > i { background: var(--wait); }
+.meter.over > i { background: var(--debt); }
+.meter.ok > i { background: var(--paid); }
+
+/* ---------- banners ---------- */
+.banner { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: var(--r); background: var(--accent-soft); color: var(--ink); flex-wrap: wrap; }
+.banner .ic { color: var(--accent); }
+.banner .txt { flex: 1 1 260px; min-width: 0; }
+.banner.warn { background: var(--wait-soft); }
+.banner.warn .ic { color: var(--wait); }
+
+/* ---------- lists ---------- */
+.list { display: flex; flex-direction: column; }
+.list > .li { border-top: 1px solid var(--line); }
+.list > .li:first-child { border-top: 0; }
+a.li, .li.link { color: inherit; text-decoration: none; cursor: pointer; }
+a.li:hover, .li.link:hover { background: var(--surface-2); }
+.empty { padding: 28px 18px; text-align: center; color: var(--ink-3); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.empty b { color: var(--ink); font-weight: 600; }
+
+/* area bars */
+.bars { display: flex; flex-direction: column; gap: 14px; }
+.bar-row { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; }
+.bar-row .meter { height: 10px; }
+.bar-row .amt { font-weight: 600; }
+.bar-row .meta { grid-column: 2 / 4; font-size: 12.5px; color: var(--ink-3); margin-top: -2px; }
+
+/* attention / generic rows */
+.row2 { display: flex; align-items: center; gap: 12px; padding: 12px 18px; }
+.row2 .grow { flex: 1 1 auto; min-width: 0; }
+.row2 .nm { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row2 .right { text-align: right; flex: none; }
+@media (max-width: 899px) { .row2 { padding: 12px 14px; } }
+
+/* customers table */
+.toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--line); }
+.search { position: relative; flex: 1 1 260px; min-width: 0; }
+.search .ic { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--ink-3); width: 18px; height: 18px; }
+.search input { padding-left: 38px; }
+.seg { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+.seg button {
+  height: 34px; padding: 0 12px; border-radius: 99px; border: 1px solid var(--line-strong); background: var(--surface); cursor: pointer; font-size: 13.5px; font-weight: 500; color: var(--ink-2);
+}
+.seg button[aria-pressed="true"] { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-ink); }
+.thead { display: grid; padding: 9px 18px; background: var(--surface-2); border-bottom: 1px solid var(--line); font-size: 12.5px; font-weight: 600; color: var(--ink-3); gap: 14px; }
+.cust-grid { grid-template-columns: minmax(0, 2.2fr) 56px minmax(0, 1.2fr) minmax(0, 1.6fr) minmax(0, 1.1fr); }
+.cust-row { display: grid; gap: 4px 14px; align-items: center; padding: 12px 18px; }
+.cust-row .nm { font-weight: 600; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.cust-row .c-debt { font-weight: 700; font-size: 15.5px; }
+.cust-row .lim .sub { margin-top: 4px; }
+@media (max-width: 899px) {
+  .thead { display: none; }
+  .cust-row { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "n d" "a l" "m m"; padding: 12px 14px; }
+  .cust-row .c-n { grid-area: n; } .cust-row .c-debt { grid-area: d; }
+  .cust-row .c-a { grid-area: a; } .cust-row .c-last { grid-area: l; text-align: right; }
+  .cust-row .lim { grid-area: m; }
+  .cust-row .c-last .sub { display: inline; }
+}
+
+/* ledger */
+.led-grid { grid-template-columns: 96px 108px minmax(0, 1fr) 130px 130px 140px 40px; }
+.led-row { display: grid; gap: 4px 14px; align-items: center; padding: 10px 18px; }
+.led-row .what { min-width: 0; }
+.led-row .what .t { font-weight: 500; }
+.led-row .bal { font-weight: 700; }
+.led-total { display: grid; gap: 14px; padding: 12px 18px; background: var(--surface-2); border-top: 1px solid var(--line-strong); font-weight: 700; align-items: center; border-radius: 0 0 var(--r) var(--r); }
+@media (max-width: 899px) {
+  .led-row { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "w amt" "w bal"; padding: 10px 14px; }
+  .led-row .d { display: none; } .led-row .c { display: none; }
+  .led-row .what { grid-area: w; } .led-row .amt { grid-area: amt; }
+  .led-row .inc:empty, .led-row .dec:empty { display: none; }
+  .led-row .inc, .led-row .dec { grid-area: amt; }
+  .led-row .meta-m { grid-area: meta; display: flex !important; gap: 6px; align-items: center; font-size: 12.5px; color: var(--ink-3); }
+  .led-row .bal { grid-area: bal; font-size: 13px; font-weight: 600; color: var(--ink-2); }
+  .led-row .del { display: none; }
+  .led-total { grid-template-columns: minmax(0, 1fr) auto !important; }
+  .led-total .hide-m { display: none; }
+}
+.meta-m { display: none !important; }
+.led-row .what .meta-m { margin-top: 2px; }
+
+/* trip stops (draft editor) */
+.stop-grid { grid-template-columns: 30px minmax(0, 1.6fr) 118px 150px minmax(0, 1.2fr) 128px 126px; }
+.stop-row { display: grid; gap: 8px 14px; align-items: center; padding: 10px 18px; }
+.stop-row .idx { font-weight: 700; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.stop-row .nm { font-weight: 600; }
+.stop-row .tot { font-weight: 700; }
+.stop-row .ops { display: flex; gap: 2px; justify-content: flex-end; }
+.stop-row .lbl-m { display: none; }
+.stop-total { display: grid; gap: 14px; padding: 12px 18px; background: var(--surface-2); border-top: 1px solid var(--line-strong); font-weight: 700; align-items: center; }
+@media (max-width: 899px) {
+  .stop-row { grid-template-columns: 26px minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "i n n" "i o t" "i g g" "i x x" "i p p"; padding: 12px 14px; }
+  .stop-row .idx { grid-area: i; align-self: start; padding-top: 2px; }
+  .stop-row .who { grid-area: n; }
+  .stop-row .old { grid-area: o; text-align: left; }
+  .stop-row .tot { grid-area: t; }
+  .stop-row .goods { grid-area: g; }
+  .stop-row .gnote { grid-area: x; }
+  .stop-row .ops { grid-area: p; justify-content: flex-start; }
+  .stop-row .lbl-m { display: block; font-size: 12px; color: var(--ink-3); font-weight: 500; }
+  .stop-total { grid-template-columns: minmax(0, 1fr) auto !important; }
+  .stop-total .hide-m { display: none; }
+}
+
+/* trip stop cards (active) */
+.stop-card { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 4px 12px; padding: 14px 18px; align-items: center; }
+.stop-card .idx { width: 28px; height: 28px; border-radius: 99px; display: grid; place-items: center; font-weight: 700; font-size: 13px; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+.stop-card.done .idx { background: var(--paid-soft); color: var(--paid); border-color: transparent; }
+.stop-card .nm { font-weight: 600; font-size: 15.5px; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.stop-card .st { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+@media (max-width: 899px) { .stop-card { padding: 14px; } }
+
+/* progress summary */
+.progress { display: flex; flex-direction: column; gap: 8px; }
+.progress .meter { height: 10px; }
+.prog-top { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.prog-top .big { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* forms */
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field > label, .field > .lb { font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
+.field .hint { font-size: 12.5px; color: var(--ink-3); }
+.inp, select.inp, textarea.inp {
+  width: 100%; min-height: 42px; padding: 8px 12px; border: 1px solid var(--line-strong); border-radius: var(--r-sm);
+  background: var(--surface); font-size: 16px;
+}
+textarea.inp { min-height: 72px; resize: vertical; }
+.inp:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.inp[readonly], .inp:disabled { background: var(--surface-2); color: var(--ink-2); }
+.inp.money { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+.money-wrap { position: relative; }
+.money-wrap .inp { padding-right: 30px; }
+.money-wrap::after { content: "đ"; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--ink-3); pointer-events: none; font-weight: 500; }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.form-grid .full { grid-column: 1 / -1; }
+@media (max-width: 560px) { .form-grid { grid-template-columns: minmax(0, 1fr); } }
+.check { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+.check input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--btn-bg); flex: none; }
+
+/* receipt (phiếu thu) */
+.rc-sum { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.rc-sum .cell { background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 10px 12px; }
+.rc-sum .cell .k { font-size: 12.5px; color: var(--ink-3); font-weight: 500; }
+.rc-sum .cell .v { font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rc-sum .cell.total { background: var(--accent-soft); border-color: transparent; }
+@media (max-width: 420px) { .rc-sum .cell .v { font-size: 15px; } .rc-sum { gap: 6px; } .rc-sum .cell { padding: 8px; } }
+.item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px dashed var(--line); }
+.item:first-child { border-top: 0; }
+.item .grow { flex: 1 1 auto; min-width: 0; }
+.item .nm { font-weight: 600; }
+.quick { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.pay-inp { font-size: 24px !important; min-height: 58px !important; }
+.savebar {
+  position: sticky; bottom: 0; z-index: 25; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 18px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--r); box-shadow: 0 -4px 18px rgba(15, 27, 45, .08);
+}
+.savebar .k { font-size: 13px; color: var(--ink-2); font-weight: 600; }
+.savebar .v { font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; letter-spacing: -.02em; line-height: 1.15; }
+@media (max-width: 899px) {
+  .savebar { position: fixed; left: 0; right: 0; bottom: 0; border-radius: 0; border-width: 1px 0 0;
+    padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+  .savebar .v { font-size: 22px; }
+}
+
+/* tabs */
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; padding: 0 12px; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs button {
+  display: inline-flex; gap: 8px; align-items: center; padding: 12px 10px; border: 0; background: none; cursor: pointer; font-weight: 600; color: var(--ink-3);
+  border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; font-size: 14.5px;
+}
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--btn-bg); }
+.tabs .n { font-size: 12px; min-width: 22px; height: 20px; padding: 0 6px; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--line); display: inline-grid; place-items: center; }
+
+/* warranty */
+.brand-h { display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: var(--surface-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.brand-h:first-child { border-top: 0; }
+.brand-h h3 { font-size: 15px; font-weight: 700; }
+.w-row { display: grid; grid-template-columns: 28px minmax(0, 2fr) minmax(0, 1.4fr) 110px 120px auto; gap: 6px 14px; align-items: center; padding: 12px 18px; border-top: 1px solid var(--line); }
+.brand-h + .w-row { border-top: 0; }
+.w-row .nm { font-weight: 600; }
+.w-row .acts { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap; }
+.w-row .cb { display: flex; }
+.w-row .cb input { width: 20px; height: 20px; accent-color: var(--btn-bg); margin: 0; }
+@media (max-width: 899px) {
+  .w-row { grid-template-columns: 26px minmax(0, 1fr) auto; grid-template-areas: "c n v" "c k d" "c a a"; padding: 12px 14px; }
+  .w-row .cb { grid-area: c; align-self: start; padding-top: 2px; }
+  .w-row .w-n { grid-area: n; } .w-row .w-k { grid-area: k; } .w-row .w-v { grid-area: v; } .w-row .w-d { grid-area: d; justify-self: end; }
+  .w-row .acts { grid-area: a; justify-content: flex-start; margin-top: 4px; }
+}
+.bulk { display: flex; align-items: center; gap: 12px; justify-content: space-between; flex-wrap: wrap; padding: 10px 18px; background: var(--accent-soft); border-bottom: 1px solid var(--line); }
+
+/* dialog */
+.dlg { border: 0; padding: 0; border-radius: 14px; background: var(--surface); color: var(--ink); width: min(560px, calc(100vw - 24px)); max-height: calc(100dvh - 32px); box-shadow: 0 20px 50px rgba(0, 0, 0, .25); }
+.dlg::backdrop { background: var(--scrim); }
+.dlg-form { display: flex; flex-direction: column; max-height: calc(100dvh - 32px); }
+.dlg-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 14px 10px 20px; }
+.dlg-head h2 { font-size: 18px; font-weight: 700; }
+.dlg-body { padding: 4px 20px 8px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+.dlg-err { color: var(--debt); font-size: 13.5px; font-weight: 600; padding: 0 20px; min-height: 0; }
+.dlg-err:not(:empty) { padding-top: 6px; }
+.dlg-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 14px 20px 18px; flex-wrap: wrap; }
+@media (max-width: 560px) {
+  .dlg { width: 100vw; max-width: 100vw; margin: auto 0 0; border-radius: 16px 16px 0 0; max-height: 92dvh; }
+  .dlg-form { max-height: 92dvh; }
+  .dlg-foot { padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+  .dlg-foot .btn { flex: 1 1 0; }
+}
+.pick { max-height: 46vh; overflow-y: auto; border: 1px solid var(--line); border-radius: var(--r-sm); }
+.pick .check { padding: 10px 12px; border-top: 1px solid var(--line); align-items: center; }
+.pick .check:first-child { border-top: 0; }
+.pick .check .grow { flex: 1 1 auto; min-width: 0; }
+
+/* toast */
+.toast {
+  position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+  background: var(--ink); color: var(--surface); padding: 10px 16px; border-radius: 99px; font-weight: 600; font-size: 14px; z-index: 60;
+  transition: opacity .18s, transform .18s; max-width: calc(100vw - 32px); text-align: center;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+@media (max-width: 899px) { .toast { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); } body.focus .toast { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); } }
+@media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
+
+/* paper (print preview) */
+.paper { background: #fff; color: #111; border: 1px solid var(--line); border-radius: 6px; padding: 28px 30px; font-size: 13.5px; overflow-x: auto; }
+.paper h2 { font-size: 19px; text-align: center; letter-spacing: .04em; margin-bottom: 4px; }
+.paper .center { text-align: center; }
+.paper table { border-collapse: collapse; width: 100%; min-width: 720px; margin-top: 16px; }
+.paper th, .paper td { border: 1px solid #555; padding: 6px 8px; vertical-align: top; }
+.paper th { background: #f0f0f0; font-weight: 600; font-size: 12.5px; }
+.paper td.num, .paper th.num { text-align: right; }
+.paper .meta { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+.paper .sign { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; text-align: center; min-width: 520px; }
+.paper .sign div { min-height: 90px; }
+.paper .blank { color: #999; }
+
+@media print {
+  body { background: #fff !important; }
+  .side, .tabbar, .no-print, .toast, .savebar { display: none !important; }
+  .main { margin: 0 !important; }
+  .view { padding: 0 !important; max-width: none; }
+  .paper { border: 0; padding: 0; overflow: visible; }
+  .paper table { min-width: 0; }
+}
+
+[hidden] { display: none !important; }
+
+/* ---------- đăng nhập / đăng ký ---------- */
+.auth { min-height: 100vh; min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: var(--bg); }
+.auth-brand {
+  background: var(--panel); color: var(--panel-ink); display: flex; flex-direction: column; gap: 36px;
+  padding-block: calc(48px + env(safe-area-inset-top, 0px)) 36px;
+  padding-left: max(48px, env(safe-area-inset-left, 0px)); padding-right: 48px;
+}
+.ab-top { display: flex; gap: 12px; align-items: center; }
+.ab-mark { width: 46px; height: 46px; border-radius: 11px; background: var(--panel-ink); color: var(--panel); display: grid; place-items: center; font-weight: 800; font-size: 16px; flex: none; }
+.ab-name { font-weight: 700; font-size: 18px; line-height: 1.25; }
+.ab-sub { font-size: 13px; color: var(--panel-sub); }
+.ab-hero h2 { font-size: 34px; font-weight: 800; letter-spacing: -.025em; line-height: 1.18; max-width: 18ch; }
+.ab-hero p { color: var(--panel-sub); max-width: 46ch; margin: 14px 0 0; font-size: 15.5px; }
+.ab-feats { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; max-width: 520px; }
+.ab-feats li { display: flex; gap: 14px; padding: 14px 16px; border-radius: 10px; background: var(--panel-2); }
+.ab-feats .ic { color: var(--panel-sub); margin-top: 2px; }
+.ab-feats b { display: block; font-weight: 600; }
+.ab-feats span { color: var(--panel-sub); font-size: 13.5px; }
+.ab-foot { margin-top: auto; font-size: 12.5px; color: var(--panel-sub); }
+.auth-main {
+  display: flex; align-items: center; justify-content: center;
+  padding-block: calc(40px + env(safe-area-inset-top, 0px)) calc(40px + env(safe-area-inset-bottom, 0px));
+  padding-left: 32px; padding-right: max(32px, env(safe-area-inset-right, 0px));
+}
+.auth-card { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 20px; }
+.auth-card h1 { font-size: 28px; font-weight: 800; letter-spacing: -.02em; }
+.auth-card form { display: flex; flex-direction: column; gap: 14px; }
+.lbl-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.lbl-row label { font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
+.pw-wrap { position: relative; }
+.pw-wrap .inp { padding-right: 48px; }
+.pw-wrap .icon-btn { position: absolute; right: 2px; top: 50%; transform: translateY(-50%); }
+.pw-wrap .icon-btn.on { color: var(--accent); }
+.link-btn { border: 0; background: none; padding: 0; color: var(--accent); font-weight: 600; cursor: pointer; font-size: inherit; }
+.link-btn:hover { text-decoration: underline; }
+.lbl-row .link-btn { font-size: 13.5px; }
+.auth-err { color: var(--debt); font-weight: 600; font-size: 14px; }
+.auth-err:empty { display: none; }
+.auth-alt { text-align: center; color: var(--ink-2); }
+.demo-hint { border: 1px dashed var(--line-strong); border-radius: var(--r); padding: 10px 14px; display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; font-size: 13.5px; color: var(--ink-2); }
+.btn.block { width: 100%; }
+@media (max-width: 899px) {
+  .auth { grid-template-columns: minmax(0, 1fr); align-content: start; }
+  .auth-brand { gap: 14px; padding-block: calc(20px + env(safe-area-inset-top, 0px)) 22px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .ab-hero h2 { font-size: 21px; max-width: none; }
+  .ab-hero p, .ab-feats, .ab-foot { display: none; }
+  .auth-main { align-items: flex-start; padding-block: 24px calc(32px + env(safe-area-inset-bottom, 0px)); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .auth-card h1 { font-size: 24px; }
+}
+
+/* tài khoản ở menu */
+.me { display: flex; align-items: center; gap: 10px; padding: 0 0 12px; margin-bottom: 12px; border-bottom: 1px solid var(--line); }
+.me .grow { min-width: 0; flex: 1 1 auto; }
+.me .nm { font-weight: 600; color: var(--ink); font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.me .sub { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+.avatar { width: 36px; height: 36px; border-radius: 99px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-weight: 700; font-size: 13px; flex: none; }
+
+</style>
+</head>
+<body>
+<div id="auth" hidden></div>
+<div class="shell" id="shell" hidden>
+  <aside class="side" aria-label="Menu">
+    <div class="brand"><div class="brand-mark" aria-hidden="true">HT</div><div style="min-width:0"><div class="brand-name" id="brandName">Phụ tùng Hữu Thuỳ</div><div class="brand-sub">Sổ công nợ</div></div></div>
+    <nav class="nav" id="sideNav"></nav>
+    <div class="side-foot" id="sideFoot"></div>
+  </aside>
+  <div class="main"><main id="view" class="view"></main></div>
+  <nav class="tabbar" id="tabBar" aria-label="Menu"></nav>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="dlg" class="dlg"></dialog>
+<script>
+(() => {
+/* Bản chạy trực tiếp trên máy */
+const HOSTED = false;
+const hostedSave = null;
+
+/* ===== Sổ công nợ phụ tùng — dữ liệu & quy tắc tính nợ ===== */
+'use strict';
+const KEY = 'socongno.v1';
+const WARRANTY_LATE = 14; // số ngày chờ hãng bắt đầu cảnh báo
+const SHOP = 'Phụ tùng Hữu Thuỳ';
+const OLD_NAMES = ['Đại lý phụ tùng', 'Đại lý phụ tùng (mẫu)'];
+
+/* ---------- tiện ích ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const uid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+const pad = n => String(n).padStart(2, '0');
+const isoOf = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const todayISO = () => isoOf(new Date());
+const addDays = (iso, n) => { const [y, m, d] = iso.split('-').map(Number); return isoOf(new Date(y, m - 1, d + n)); };
+const daysBetween = (a, b) => Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000);
+const fmtDate = iso => iso ? iso.split('-').reverse().join('/') : '';
+const fmtDateShort = iso => iso ? iso.slice(8, 10) + '/' + iso.slice(5, 7) : '';
+const grp = n => String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+const money = (n, sign) => { n = Math.round(n || 0); return (n < 0 ? '−' : (sign && n > 0 ? '+' : '')) + grp(n) + ' đ'; };
+const sum = arr => arr.reduce((s, x) => s + (Number(x) || 0), 0);
+const ago = days => days <= 0 ? 'hôm nay' : days === 1 ? 'hôm qua' : `${days} ngày trước`;
+
+/* Đọc số tiền người dùng gõ: "1.250.000", "1250000", "200k", "1,5tr", "-300.000" */
+function parseMoney(v) {
+  if (v == null) return 0;
+  let s = String(v).trim().toLowerCase().replace(/\s|đ|vnd/g, '');
+  if (!s) return 0;
+  let neg = false;
+  if (/^[-−]/.test(s)) { neg = true; s = s.slice(1); }
+  let mult = 1;
+  if (/(tr|m)$/.test(s)) { mult = 1e6; s = s.replace(/(tr|m)$/, ''); }
+  else if (/k$/.test(s)) { mult = 1e3; s = s.slice(0, -1); }
+  let n;
+  if (mult > 1) {
+    // "1,5tr" hoặc "1.5tr" là số thập phân; "1.500k" là nhóm nghìn
+    const dec = s.match(/^(\d+)[.,](\d{1,2})$/);
+    n = dec ? parseFloat(dec[1] + '.' + dec[2]) : parseFloat(s.replace(/[.,]/g, ''));
+  } else {
+    n = parseInt(s.replace(/[.,]/g, ''), 10);
+  }
+  if (!isFinite(n)) return 0;
+  n = Math.round(n * mult);
+  return neg ? -n : n;
+}
+
+/* ---------- trạng thái ---------- */
+let S = null;
+let storageOK = true;
+
+function emptyState() {
+  return {
+    version: 1, seq: 0,
+    settings: { shopName: SHOP, staleDays: 30, isSample: false, lastBackup: null },
+    areas: [
+      { id: uid(), code: 'TĐ', name: 'Tuyến TĐ' },
+      { id: uid(), code: 'QT', name: 'Tuyến QT' },
+      { id: uid(), code: 'ĐT', name: 'Tuyến ĐT' },
+    ],
+    brands: [], customers: [], entries: [], trips: [], warranty: [],
+  };
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) {
+      const d = JSON.parse(raw);
+      if (d && d.version === 1 && Array.isArray(d.customers)) {
+        if (d.settings && OLD_NAMES.includes(d.settings.shopName)) d.settings.shopName = SHOP;
+        return d;
+      }
+    }
+  } catch (e) { storageOK = false; }
+  return null;
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(S)); storageOK = true; }
+  catch (e) { storageOK = false; }
+}
+let saveTimer = null;
+function persist() { clearTimeout(saveTimer); saveTimer = setTimeout(save, 300); }
+window.addEventListener('pagehide', () => { clearTimeout(saveTimer); save(); });
+
+/* ---------- tra cứu ---------- */
+const areaOf = id => S.areas.find(a => a.id === id);
+const brandOf = id => S.brands.find(b => b.id === id);
+const custOf = id => S.customers.find(c => c.id === id);
+const tripOf = id => S.trips.find(t => t.id === id);
+const byEntry = (a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : a.seq - b.seq;
+
+function balance(cid, excludeTrip) {
+  let b = 0;
+  for (const e of S.entries) if (e.customerId === cid && (!excludeTrip || e.tripId !== excludeTrip)) b += e.amount;
+  return b;
+}
+function entriesOf(cid) { return S.entries.filter(e => e.customerId === cid).sort(byEntry); }
+function lastPaymentDate(cid) {
+  let d = null;
+  for (const e of S.entries) if (e.customerId === cid && e.type === 'payment' && (!d || e.date > d)) d = e.date;
+  return d;
+}
+function firstEntryDate(cid) {
+  let d = null;
+  for (const e of S.entries) if (e.customerId === cid && (!d || e.date < d)) d = e.date;
+  return d;
+}
+/* Số ngày khách chưa trả: tính từ lần trả gần nhất, hoặc từ lần phát sinh đầu tiên nếu chưa từng trả */
+function daysUnpaid(cid) {
+  const d = lastPaymentDate(cid) || firstEntryDate(cid);
+  return d ? daysBetween(d, todayISO()) : 0;
+}
+function custStatus(c, bal) {
+  bal = bal ?? balance(c.id);
+  const pct = c.limit > 0 ? bal / c.limit : 0;
+  const flags = [];
+  if (c.limit > 0 && bal > c.limit) flags.push({ k: 'over', t: 'Vượt hạn mức', cls: 'debt' });
+  else if (c.limit > 0 && pct >= .9) flags.push({ k: 'near', t: 'Gần hạn mức', cls: 'wait' });
+  if (bal > 0 && daysUnpaid(c.id) > S.settings.staleDays) flags.push({ k: 'stale', t: `${daysUnpaid(c.id)} ngày chưa trả`, cls: 'wait' });
+  if (bal < 0) flags.push({ k: 'credit', t: 'Khách trả dư', cls: 'info' });
+  return { pct, flags };
+}
+function addEntry(e) {
+  S.seq += 1;
+  const row = Object.assign({ id: uid(), seq: S.seq, note: '', tripId: null, stopId: null, createdAt: Date.now() }, e);
+  S.entries.push(row);
+  return row;
+}
+
+const ENTRY_LABEL = { opening: 'Nợ đầu kỳ', delivery: 'Giao hàng', return: 'Trả hàng nguyên mác', payment: 'Thanh toán', adjust: 'Điều chỉnh' };
+function entryLabel(e) {
+  if (e.type === 'payment' && !e.tripId) return 'Thu tại kho';
+  if (e.type === 'adjust') return e.amount >= 0 ? 'Điều chỉnh tăng' : 'Điều chỉnh giảm';
+  return ENTRY_LABEL[e.type] || e.type;
+}
+
+/* ---------- khách hàng ---------- */
+function createCustomer(f, date) {
+  const c = { id: uid(), name: f.name.trim(), owner: (f.owner || '').trim(), phone: (f.phone || '').trim(), address: (f.address || '').trim(), areaId: f.areaId || null, limit: f.limit || 0, note: (f.note || '').trim(), createdAt: Date.now() };
+  S.customers.push(c);
+  if (f.opening) addEntry({ customerId: c.id, date: date || todayISO(), type: 'opening', amount: f.opening, note: 'Chuyển từ sổ giấy' });
+  return c;
+}
+
+/* ---------- chuyến hàng ---------- */
+function tripCode(date) {
+  const same = S.trips.filter(t => t.date === date).length + 1;
+  return `CH-${date.slice(8, 10)}${date.slice(5, 7)}-${same}`;
+}
+function createTrip(date) {
+  const t = { id: uid(), code: tripCode(date), date, status: 'draft', note: '', stops: [], createdAt: Date.now(), startedAt: null, closedAt: null };
+  S.trips.push(t);
+  return t;
+}
+function addStop(trip, cid, goods = 0, goodsNote = '') {
+  if (trip.stops.some(s => s.customerId === cid)) return null;
+  const s = { id: uid(), customerId: cid, goods, goodsNote, returns: [], payment: 0, visited: false, oldDebt: null, savedAt: null };
+  trip.stops.push(s);
+  return s;
+}
+function stopCalc(trip, stop) {
+  const old = stop.oldDebt != null ? stop.oldDebt : balance(stop.customerId, trip.id);
+  const goods = stop.goods || 0;
+  const ret = sum(stop.returns.map(r => r.value));
+  const pay = stop.visited ? (stop.payment || 0) : 0;
+  const total = old + goods;
+  return { old, goods, total, ret, pay, remain: total - ret - pay };
+}
+function tripCalc(trip) {
+  let due = 0, plannedDue = 0, ret = 0, paid = 0, remain = 0, visited = 0, goods = 0, old = 0;
+  for (const s of trip.stops) {
+    const c = stopCalc(trip, s);
+    plannedDue += c.total; old += c.old; goods += c.goods;
+    if (s.visited) { visited++; due += c.total; ret += c.ret; paid += c.pay; remain += c.remain; }
+  }
+  const qd = S.warranty.filter(w => w.tripId === trip.id).length;
+  return { due, plannedDue, ret, paid, remain, visited, n: trip.stops.length, goods, old, qd };
+}
+function stopState(trip, stop) {
+  if (!stop.visited) return { t: 'Chưa ghé', cls: '' };
+  const c = stopCalc(trip, stop);
+  return c.remain > 0 ? { t: 'Còn nợ', cls: 'debt' } : { t: 'Đã thu đủ', cls: 'paid' };
+}
+
+/* Lưu phiếu thu: ghi lại các dòng sổ nợ của điểm giao này (ghi đè nếu lưu lại) */
+function saveStop(trip, stop, d) {
+  if (stop.oldDebt == null) stop.oldDebt = balance(stop.customerId, trip.id);
+  stop.goods = d.goods || 0;
+  stop.goodsNote = d.goodsNote || '';
+  stop.returns = d.returns.map(r => ({ id: r.id || uid(), name: r.name, qty: r.qty, value: r.value }));
+  stop.payment = d.payment || 0;
+  stop.visited = true;
+  stop.savedAt = Date.now();
+
+  S.entries = S.entries.filter(e => e.stopId !== stop.id);
+  const cid = stop.customerId;
+  if (stop.goods > 0) addEntry({ customerId: cid, date: trip.date, type: 'delivery', amount: stop.goods, note: stop.goodsNote, tripId: trip.id, stopId: stop.id });
+  const ret = sum(stop.returns.map(r => r.value));
+  if (ret > 0) addEntry({ customerId: cid, date: trip.date, type: 'return', amount: -ret, note: stop.returns.map(r => `${r.name} × ${r.qty}`).join(', '), tripId: trip.id, stopId: stop.id });
+  if (stop.payment > 0) addEntry({ customerId: cid, date: trip.date, type: 'payment', amount: -stop.payment, note: '', tripId: trip.id, stopId: stop.id });
+
+  // Hàng quay đầu nhận ở điểm giao này: đồng bộ theo bản nháp
+  const keep = new Set(d.qd.map(q => q.id));
+  S.warranty = S.warranty.filter(w => !(w.stopId === stop.id && !keep.has(w.id) && w.status === 'waiting'));
+  for (const q of d.qd) {
+    const w = S.warranty.find(x => x.id === q.id);
+    if (w) Object.assign(w, { name: q.name, brandId: q.brandId, qty: q.qty, value: q.value, defect: q.defect });
+    else S.warranty.push({ id: q.id || uid(), customerId: cid, name: q.name, brandId: q.brandId, qty: q.qty, value: q.value, defect: q.defect, status: 'waiting', outcome: null, receivedDate: trip.date, tripId: trip.id, stopId: stop.id, sentDate: null, resolvedDate: null, doneDate: null, doneTripId: null, doneStopId: null, prevStatus: null });
+  }
+  // Hàng giao lại cho khách (đổi bảo hành hoặc trả lại hàng lỗi)
+  for (const w of S.warranty) {
+    if (w.customerId !== cid) continue;
+    const ticked = d.back.has(w.id);
+    if (ticked && (w.status === 'accepted' || w.status === 'rejected')) {
+      w.prevStatus = w.status; w.outcome = w.status === 'accepted' ? 'exchanged' : 'returned';
+      w.status = 'done'; w.doneDate = trip.date; w.doneTripId = trip.id; w.doneStopId = stop.id;
+    } else if (!ticked && w.status === 'done' && w.doneStopId === stop.id) {
+      w.status = w.prevStatus || (w.outcome === 'exchanged' ? 'accepted' : 'rejected');
+      w.outcome = null; w.doneDate = null; w.doneTripId = null; w.doneStopId = null;
+    }
+  }
+}
+function startTrip(trip) { trip.status = 'active'; trip.startedAt = Date.now(); }
+function closeTrip(trip) {
+  for (const s of trip.stops) if (s.oldDebt == null) s.oldDebt = balance(s.customerId, trip.id);
+  trip.status = 'closed'; trip.closedAt = Date.now();
+}
+function reopenTrip(trip) {
+  trip.status = 'active'; trip.closedAt = null;
+  for (const s of trip.stops) if (!s.visited) s.oldDebt = null;
+}
+function deleteTrip(trip) {
+  S.entries = S.entries.filter(e => e.tripId !== trip.id);
+  S.warranty = S.warranty.filter(w => w.tripId !== trip.id);
+  S.trips = S.trips.filter(t => t.id !== trip.id);
+}
+function removeStop(trip, stop) {
+  S.entries = S.entries.filter(e => e.stopId !== stop.id);
+  S.warranty = S.warranty.filter(w => w.stopId !== stop.id);
+  trip.stops = trip.stops.filter(s => s.id !== stop.id);
+}
+
+/* ---------- hàng quay đầu ---------- */
+const W_TAB = { waiting: 'Chờ gửi hãng', sent: 'Đã gửi hãng', back: 'Chờ giao lại khách', done: 'Đã xong' };
+function wTabOf(w) { return w.status === 'accepted' || w.status === 'rejected' ? 'back' : w.status; }
+function wSince(w) {
+  if (w.status === 'waiting') return w.receivedDate;
+  if (w.status === 'sent') return w.sentDate || w.receivedDate;
+  if (w.status === 'accepted' || w.status === 'rejected') return w.resolvedDate || w.receivedDate;
+  return w.doneDate;
+}
+function wDays(w) { return daysBetween(w.receivedDate, w.status === 'done' ? w.doneDate : todayISO()); }
+function wSet(w, status, date) {
+  date = date || todayISO();
+  w.prevStatus = w.status;
+  if (status === 'sent') w.sentDate = date;
+  if (status === 'accepted' || status === 'rejected') w.resolvedDate = date;
+  if (status === 'done') { w.doneDate = date; w.outcome = w.status === 'accepted' ? 'exchanged' : 'returned'; }
+  w.status = status;
+}
+function wUndo(w) {
+  const back = { sent: 'waiting', accepted: 'sent', rejected: w.sentDate ? 'sent' : 'waiting', done: w.outcome === 'exchanged' ? 'accepted' : 'rejected' }[w.status];
+  if (!back) return;
+  if (w.status === 'done') { w.doneDate = null; w.doneTripId = null; w.doneStopId = null; w.outcome = null; }
+  if (w.status === 'accepted' || w.status === 'rejected') w.resolvedDate = null;
+  if (w.status === 'sent') w.sentDate = null;
+  w.status = back;
+}
+function wPendingBack(cid) { return S.warranty.filter(w => w.customerId === cid && (w.status === 'accepted' || w.status === 'rejected')); }
+
+/* ---------- dữ liệu mẫu (tính theo ngày hôm nay để luôn khớp) ---------- */
+function sampleState() {
+  const prev = S;
+  S = emptyState();
+  S.settings.isSample = true;
+  S.settings.shopName = SHOP;
+  const T = todayISO();
+  const D = n => addDays(T, -n);
+  const [aTD, aQT, aDT] = S.areas.map(a => a.id);
+  const bA = { id: uid(), name: 'Hãng A', accepts: true };
+  const bB = { id: uid(), name: 'Hãng B', accepts: true };
+  const bDP = { id: uid(), name: 'Hãng ĐP', accepts: false };
+  S.brands.push(bA, bB, bDP);
+
+  const mk = (name, owner, phone, address, areaId, limit, opening) => createCustomer({ name, owner, phone, address, areaId, limit, opening }, D(40));
+  const tuan = mk('Tiệm Tuấn', 'Anh Tuấn', '0908 123 456', '142 Kha Vạn Cân', aTD, 5e6, 5e5);
+  const ba = mk('Tiệm Ba', 'Anh Ba', '0912 345 678', '27 Đặng Văn Bi', aTD, 8e6, 2e6);
+  const bon = mk('Tiệm Bốn', 'Chú Bốn', '0987 222 111', '88 Tô Ngọc Vân', aTD, 5e6, 0);
+  const giang = mk('Tiệm Giang Bình', 'Chị Giang', '0933 456 789', '15 Quang Trung', aQT, 10e6, 3.5e6);
+  const huong = mk('Tiệm Hưởng Hà', 'Anh Hưởng', '0977 888 999', 'Chợ Hà, ấp 3', aDT, 6e6, 1.2e6);
+  const sau = mk('Tiệm Sáu Motor', 'Chú Sáu', '0918 442 100', '301 Lê Văn Khương', aQT, 15e6, 9e6);
+  const minh = mk('Tiệm Minh Sửa Xe', 'Anh Minh', '0932 651 300', 'Ngã ba Mỹ Hiệp', aDT, 5e6, 2.8e6);
+
+  const W = (cid, name, brand, qty, value, defect, date, trip, stop) => {
+    const w = { id: uid(), customerId: cid, name, brandId: brand.id, qty, value, defect, status: 'waiting', outcome: null, receivedDate: date, tripId: trip ? trip.id : null, stopId: stop ? stop.id : null, sentDate: null, resolvedDate: null, doneDate: null, doneTripId: null, doneStopId: null, prevStatus: null };
+    S.warranty.push(w); return w;
+  };
+  const run = (trip, cust, goods, note, pay, returns, qd) => {
+    const s = addStop(trip, cust.id, goods, note);
+    saveStop(trip, s, { goods, goodsNote: note, returns: returns || [], payment: pay, qd: [], back: new Set() });
+    (qd || []).forEach(q => W(cust.id, q[0], q[1], q[2], q[3], q[4], trip.date, trip, s));
+    return s;
+  };
+
+  // Bóng đèn của Tiệm Giang nhận tại kho, đã đổi xong
+  const wDen = W(giang.id, 'Bóng đèn pha LED', bA, 1, 180000, 'Chập chờn', D(30), null, null);
+  wSet(wDen, 'sent', D(28)); wSet(wDen, 'accepted', D(20));
+
+  const t1 = createTrip(D(16)); startTrip(t1);
+  run(t1, tuan, 1e6, 'Má phanh, bugi', 5e5);
+  run(t1, ba, 2.5e6, 'Xích tải, nhông sên đĩa', 2e6, [{ name: 'Bugi', qty: 2, value: 120000 }], [['Ắc quy 12V', bB, 1, 450000, 'Không giữ điện']]);
+  run(t1, bon, 1.8e6, '5 chai nhớt, lọc gió', 1e6);
+  run(t1, sau, 4e6, 'Bộ nồi, dây curoa', 0, [], [['Má phanh đĩa', bA, 2, 300000, 'Mòn lệch sau 1 tuần']]);
+  closeTrip(t1);
+
+  const t2 = createTrip(D(9)); startTrip(t2);
+  const sG = run(t2, giang, 3e6, 'Đèn, còi, công tắc', 3.5e6);
+  saveStop(t2, sG, { goods: 3e6, goodsNote: 'Đèn, còi, công tắc', returns: [], payment: 3.5e6, qd: [], back: new Set([wDen.id]) });
+  run(t2, huong, 1.5e6, 'Bugi, dây ga', 1.2e6, [], [['Bugi', bB, 3, 90000, 'Không đánh lửa']]);
+  run(t2, sau, 2e6, 'Nhông sên đĩa', 5e5);
+  addStop(t2, minh.id, 900000, 'Dây curoa');
+  closeTrip(t2);
+
+  addEntry({ customerId: giang.id, date: D(5), type: 'payment', amount: -1e6, note: 'Chị Giang mang tiền lên kho' });
+
+  const t3 = createTrip(D(2)); startTrip(t3);
+  run(t3, tuan, 1e6, 'IC, bộ nồi trước', 1e6, [{ name: 'Má phanh trước', qty: 1, value: 200000 }], [['IC', bA, 1, 300000, 'Xe không nổ máy']]);
+  run(t3, ba, 1.5e6, 'Lốp, ruột xe', 2.38e6);
+  run(t3, minh, 900000, 'Dây curoa', 0, [], [['Dây curoa', bDP, 1, 320000, 'Nứt sau 3 ngày']]);
+  closeTrip(t3);
+
+  // Trạng thái bảo hành
+  const find = (cid, name) => S.warranty.find(w => w.customerId === cid && w.name === name);
+  const wAQ = find(ba.id, 'Ắc quy 12V'); wSet(wAQ, 'sent', D(14));
+  const wMP = find(sau.id, 'Má phanh đĩa'); wSet(wMP, 'sent', D(12)); wSet(wMP, 'accepted', D(4));
+  const wBG = find(huong.id, 'Bugi'); wSet(wBG, 'sent', D(7));
+
+  // Chuyến đang đi hôm nay
+  const t4 = createTrip(T); startTrip(t4);
+  run(t4, bon, 1.2e6, 'Bố thắng, dầu thắng', 2e6);
+  addStop(t4, giang.id, 2.2e6, 'Đèn hậu, xi nhan');
+  addStop(t4, huong.id, 700000, 'Bóng đèn, cầu chì');
+
+  const out = S; S = prev; return out;
+}
+
+/* ===== Tài khoản & đăng nhập (bản mẫu: lưu trên trình duyệt, không có máy chủ) ===== */
+const AUTH_KEY = 'socongno.auth.v1';
+const SESSION_KEY = 'socongno.session.v1';
+const DEMO = { name: 'Nguyễn Tiến Mạnh', ident: 'nguyentienmanh@gmail.com', password: '123456' };
+const PW_MIN = 6;
+
+/* SHA-256 (để không lưu mật khẩu dạng chữ thường) */
+const sha256 = (() => {
+  const K = [], H0 = [];
+  const frac = x => ((x - Math.floor(x)) * 4294967296) >>> 0;
+  for (let n = 2, found = 0; found < 64; n++) {
+    let prime = true;
+    for (let d = 2; d * d <= n; d++) if (n % d === 0) { prime = false; break; }
+    if (!prime) continue;
+    if (found < 8) H0.push(frac(Math.sqrt(n)));
+    K.push(frac(Math.cbrt(n)));
+    found++;
+  }
+  const ror = (x, n) => (x >>> n) | (x << (32 - n));
+  return msg => {
+    const bytes = new TextEncoder().encode(String(msg));
+    const len = bytes.length, total = ((len + 9 + 63) >> 6) << 6;
+    const m = new Uint8Array(total); m.set(bytes); m[len] = 0x80;
+    const dv = new DataView(m.buffer);
+    dv.setUint32(total - 8, Math.floor(len / 0x20000000)); dv.setUint32(total - 4, (len << 3) >>> 0);
+    const H = H0.slice(), w = new Uint32Array(64);
+    for (let i = 0; i < total; i += 64) {
+      for (let t = 0; t < 16; t++) w[t] = dv.getUint32(i + t * 4);
+      for (let t = 16; t < 64; t++) {
+        const s0 = ror(w[t - 15], 7) ^ ror(w[t - 15], 18) ^ (w[t - 15] >>> 3);
+        const s1 = ror(w[t - 2], 17) ^ ror(w[t - 2], 19) ^ (w[t - 2] >>> 10);
+        w[t] = (w[t - 16] + s0 + w[t - 7] + s1) >>> 0;
+      }
+      let [a, b, c, d, e, f, g, h] = H;
+      for (let t = 0; t < 64; t++) {
+        const t1 = (h + (ror(e, 6) ^ ror(e, 11) ^ ror(e, 25)) + ((e & f) ^ (~e & g)) + K[t] + w[t]) >>> 0;
+        const t2 = ((ror(a, 2) ^ ror(a, 13) ^ ror(a, 22)) + ((a & b) ^ (a & c) ^ (b & c))) >>> 0;
+        h = g; g = f; f = e; e = (d + t1) >>> 0; d = c; c = b; b = a; a = (t1 + t2) >>> 0;
+      }
+      H[0] = (H[0] + a) >>> 0; H[1] = (H[1] + b) >>> 0; H[2] = (H[2] + c) >>> 0; H[3] = (H[3] + d) >>> 0;
+      H[4] = (H[4] + e) >>> 0; H[5] = (H[5] + f) >>> 0; H[6] = (H[6] + g) >>> 0; H[7] = (H[7] + h) >>> 0;
+    }
+    return H.map(x => x.toString(16).padStart(8, '0')).join('');
+  };
+})();
+
+let ACC = { users: [] };
+let SESSION = null;
+
+function normIdent(s) {
+  s = String(s || '').trim().toLowerCase();
+  if (/^[+\d\s.()-]+$/.test(s)) {
+    s = s.replace(/[^\d+]/g, '');
+    if (s.startsWith('+84')) s = '0' + s.slice(3);
+    else if (s.startsWith('84') && s.length === 11) s = '0' + s.slice(2);
+  }
+  return s;
+}
+function identKind(s) {
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s)) return 'email';
+  if (/^0\d{9}$/.test(s)) return 'phone';
+  return null;
+}
+function makeUser(name, ident, pw) {
+  const salt = uid();
+  return { id: uid(), name: name.trim(), ident: normIdent(ident), salt, hash: sha256(salt + ':' + pw), createdAt: Date.now() };
+}
+function saveAccounts() { try { localStorage.setItem(AUTH_KEY, JSON.stringify(ACC)); } catch (e) { /* bỏ qua */ } }
+function loadAccounts() {
+  try { const d = JSON.parse(localStorage.getItem(AUTH_KEY) || 'null'); if (d && Array.isArray(d.users)) ACC = d; } catch (e) { /* bỏ qua */ }
+  if (!ACC.users.some(u => u.ident === DEMO.ident)) { ACC.users.push(makeUser(DEMO.name, DEMO.ident, DEMO.password)); saveAccounts(); }
+}
+function checkLogin(ident, pw) {
+  const u = ACC.users.find(x => x.ident === normIdent(ident));
+  return u && u.hash === sha256(u.salt + ':' + pw) ? u : null;
+}
+function startSession(u, remember) {
+  SESSION = { userId: u.id, exp: Date.now() + (remember ? 30 * 86400000 : 12 * 3600000), remember: !!remember };
+  const raw = JSON.stringify(SESSION);
+  try { localStorage.removeItem(SESSION_KEY); sessionStorage.removeItem(SESSION_KEY); } catch (e) { /* bỏ qua */ }
+  try { (remember ? localStorage : sessionStorage).setItem(SESSION_KEY, raw); } catch (e) { /* phiên chỉ giữ trong trang */ }
+}
+function loadSession() {
+  SESSION = null;
+  for (const get of [() => sessionStorage, () => localStorage]) {
+    try {
+      const s = JSON.parse(get().getItem(SESSION_KEY) || 'null');
+      if (s && s.exp > Date.now() && ACC.users.some(u => u.id === s.userId)) { SESSION = s; return; }
+    } catch (e) { /* bỏ qua */ }
+  }
+}
+function endSession() {
+  SESSION = null;
+  try { localStorage.removeItem(SESSION_KEY); } catch (e) { /* bỏ qua */ }
+  try { sessionStorage.removeItem(SESSION_KEY); } catch (e) { /* bỏ qua */ }
+}
+const currentUser = () => SESSION ? ACC.users.find(u => u.id === SESSION.userId) || null : null;
+const initials = name => { const w = String(name || '?').trim().split(/\s+/); return ((w[0] || '?')[0] + (w.length > 1 ? w[w.length - 1][0] : '')).toUpperCase(); };
+
+/* ===== Giao diện ===== */
+const ICONS = {
+  home: '<path d="M3 11 12 4l9 7"/><path d="M5.5 9.5V20h5v-6h3v6h5V9.5"/>',
+  truck: '<path d="M2.5 6.5h11v10h-11z"/><path d="M13.5 9.5h4l3 3.2v3.8h-7"/><circle cx="6.5" cy="17.5" r="1.9"/><circle cx="16.5" cy="17.5" r="1.9"/>',
+  shop: '<path d="M4 9.5h16l-1.6-5h-12.8z"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5h4v5"/>',
+  ret: '<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>',
+  cog: '<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  back: '<path d="M15 5l-7 7 7 7"/>',
+  chev: '<path d="M9 5l7 7-7 7"/>',
+  phone: '<path d="M5 4h3.5l2 5-2.4 1.5a11 11 0 0 0 5.4 5.4L15 13.5l5 2V19a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+  print: '<path d="M7 9V3.5h10V9"/><path d="M7 18H4.5V11a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7H17"/><path d="M7 14h10v6.5H7z"/>',
+  check: '<path d="M5 12.5 10 17l9-10"/>',
+  trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
+  up: '<path d="M12 19V5M6 11l6-6 6 6"/>',
+  down: '<path d="M12 5v14M6 13l6 6 6-6"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/>',
+  x: '<path d="M6 6l12 12M18 6 6 18"/>',
+  download: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+  upload: '<path d="M12 16V5M7 9l5-5 5 5M5 20h14"/>',
+  edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/>',
+  cash: '<path d="M3 6.5h18v11H3z"/><circle cx="12" cy="12" r="2.6"/><path d="M6.5 10v4M17.5 10v4"/>',
+  alert: '<path d="M12 4 2.5 20h19z"/><path d="M12 10v4.5M12 17.3v.2"/>',
+  copy: '<path d="M9 9h11v11H9z"/><path d="M5 15H4V4h11v1"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.2"/>',
+  book: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5"/>',
+  undo: '<path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/>',
+};
+const icon = (n, cls = '') => `<svg class="ic ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n] || ''}</svg>`;
+const chip = (t, cls = '') => `<span class="chip ${cls}">${esc(t)}</span>`;
+const areaTag = id => { const a = areaOf(id); return a ? `<span class="area" title="${esc(a.name)}">${esc(a.code)}</span>` : ''; };
+const moneyInput = (id, val, attrs = '', cls = '') => `<div class="money-wrap"><input class="inp money ${cls}" id="${id}" inputmode="numeric" autocomplete="off" data-money value="${val ? grp(val) : ''}" placeholder="0" ${attrs}></div>`;
+const meterCls = pct => pct > 1 ? 'over' : pct >= .9 ? 'warn' : '';
+const phoneHTML = p => !p ? '' : HOSTED ? `<span>${esc(p)}</span>` : `<a href="tel:${esc(p.replace(/\s/g, ''))}">${esc(p)}</a>`;
+
+/* ---------- điều hướng ---------- */
+const UI = { route: '', custQ: '', custArea: 'all', custSort: 'debt', custTab: 'ledger', wTab: 'waiting', wSel: new Set(), draft: null };
+const NAV = [
+  { r: '', label: 'Tổng quan', short: 'Tổng quan', ic: 'home' },
+  { r: 'trips', label: 'Chuyến hàng', short: 'Chuyến', ic: 'truck' },
+  { r: 'customers', label: 'Khách hàng', short: 'Khách', ic: 'shop' },
+  { r: 'returns', label: 'Hàng quay đầu', short: 'Quay đầu', ic: 'ret' },
+  { r: 'settings', label: 'Cài đặt', short: 'Cài đặt', ic: 'cog' },
+];
+const SECTION_OF = { trip: 'trips', stop: 'trips', close: 'trips', 'print-trip': 'trips', cust: 'customers', 'print-cust': 'customers' };
+
+async function go(route, opts = {}) {
+  if (UI.draft && UI.draft.dirty && !opts.force && route !== UI.route) {
+    const ok = await confirmBox('Phiếu thu chưa lưu', 'Bạn đã sửa phiếu thu này nhưng chưa bấm Lưu. Rời trang sẽ bỏ các thay đổi đó.', 'Bỏ thay đổi', true);
+    if (!ok) return;
+  }
+  UI.draft = null;
+  UI.route = route;
+  if (!HOSTED && !opts.noHistory) { try { history.pushState({ r: route }, '', '#' + route); } catch (e) { /* bỏ qua */ } }
+  render();
+  window.scrollTo(0, 0);
+}
+if (!HOSTED) {
+  window.addEventListener('popstate', ev => { UI.draft = null; UI.route = (ev.state && ev.state.r) || location.hash.slice(1) || ''; render(); });
+}
+
+function renderNav() {
+  const sec = SECTION_OF[UI.route.split('/')[0]] ?? UI.route.split('/')[0];
+  const nW = S.warranty.filter(w => w.status !== 'done').length;
+  const nActive = S.trips.filter(t => t.status === 'active').length;
+  $('#sideNav').innerHTML = NAV.map(n => `<a href="#${n.r}" data-go="${n.r}" ${sec === n.r ? 'aria-current="page"' : ''}>${icon(n.ic)}<span>${n.label}</span>${n.r === 'returns' && nW ? `<span class="count">${nW}</span>` : ''}${n.r === 'trips' && nActive ? `<span class="count" title="Chuyến đang đi giao">${nActive}</span>` : ''}</a>`).join('');
+  $('#tabBar').innerHTML = NAV.map(n => `<a href="#${n.r}" data-go="${n.r}" ${sec === n.r ? 'aria-current="page"' : ''}>${icon(n.ic)}<span>${n.short}</span>${n.r === 'returns' && nW ? `<span class="dot">${nW}</span>` : ''}${n.r === 'trips' && nActive ? `<span class="dot">${nActive}</span>` : ''}</a>`).join('');
+  $('#brandName').textContent = S.settings.shopName;
+  $('#sideFoot').innerHTML = userBlock() + (storageOK
+    ? `Dữ liệu lưu trên trình duyệt này.<br>${S.settings.lastBackup ? 'Sao lưu gần nhất: ' + fmtDate(S.settings.lastBackup) : 'Chưa sao lưu lần nào.'}`
+    : '<span class="debt">Trình duyệt không cho lưu dữ liệu. Hãy xuất file sao lưu trước khi đóng trang.</span>');
+}
+
+function render() {
+  if (!currentUser()) { renderAuth(); return; }
+  $('#auth').hidden = true; $('#shell').hidden = false;
+  const [r, a, b] = UI.route.split('/');
+  document.body.classList.toggle('focus', r === 'stop');
+  const views = { '': vDashboard, trips: vTrips, trip: () => vTrip(a), stop: () => vStop(a, b), close: () => vClose(a), customers: vCustomers, cust: () => vCustomer(a), returns: vReturns, settings: vSettings, 'print-trip': () => vPrintTrip(a), 'print-cust': () => vPrintCust(a) };
+  const fn = views[r] || vDashboard;
+  renderNav();
+  $('#view').innerHTML = fn() || '';
+  afterRender[r] && afterRender[r](a, b);
+}
+const afterRender = {};
+
+function header({ back, eyebrow, title, actions = '' }) {
+  return `<div class="ph"><div class="ph-l">${back != null ? `<button class="icon-btn bordered back" data-go="${back}" aria-label="Quay lại">${icon('back')}</button>` : ''}<div style="min-width:0">${eyebrow ? `<div class="eyebrow">${eyebrow}</div>` : ''}<h1>${title}</h1></div></div>${actions ? `<div class="ph-actions">${actions}</div>` : ''}</div>`;
+}
+function notFound(what) {
+  return header({ back: '', title: `Không tìm thấy ${what}` }) + `<div class="card"><div class="empty">Có thể ${what} đã bị xoá. <button class="btn" data-go="">Về Tổng quan</button></div></div>`;
+}
+
+/* ---------- hộp thoại ---------- */
+function openDialog({ title, body, okLabel = 'Lưu', okCls = 'primary', cancelLabel = 'Huỷ', onOk, onOpen, hideOk }) {
+  const d = $('#dlg');
+  d.innerHTML = `<form class="dlg-form" novalidate><div class="dlg-head"><h2>${esc(title)}</h2><button type="button" class="icon-btn" data-close aria-label="Đóng">${icon('x')}</button></div><div class="dlg-body">${body}</div><div class="dlg-err" role="alert"></div><div class="dlg-foot"><button type="button" class="btn" data-close>${esc(cancelLabel)}</button>${hideOk ? '' : `<button type="submit" class="btn ${okCls}">${esc(okLabel)}</button>`}</div></form>`;
+  const form = d.querySelector('form');
+  form.addEventListener('submit', ev => {
+    ev.preventDefault();
+    const err = onOk ? onOk(form) : null;
+    if (err) { d.querySelector('.dlg-err').textContent = err; return; }
+    closeDialog();
+  });
+  form.addEventListener('input', () => { d.querySelector('.dlg-err').textContent = ''; });
+  d.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => { closeDialog(); d._resolve && d._resolve(false); }));
+  d.onclose = () => { d._resolve && d._resolve(false); d._resolve = null; };
+  try { d.showModal(); } catch (e) { d.setAttribute('open', ''); }
+  if (onOpen) onOpen(d);
+  const first = d.querySelector('.dlg-body input:not([type=checkbox]):not([readonly]), .dlg-body select, .dlg-body textarea');
+  if (first && window.matchMedia('(min-width: 900px)').matches) first.focus();
+  return d;
+}
+function closeDialog() { const d = $('#dlg'); try { d.close(); } catch (e) { d.removeAttribute('open'); } }
+function confirmBox(title, msg, okLabel = 'Đồng ý', danger = false) {
+  return new Promise(res => {
+    const d = openDialog({ title, body: `<p style="margin:0;color:var(--ink-2)">${msg}</p>`, okLabel, okCls: danger ? 'danger-fill' : 'primary', onOk: () => { const r = d._resolve; d._resolve = null; r && r(true); } });
+    d._resolve = res;
+  });
+}
+let toastT;
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2200);
+}
+const val = (f, name) => (f.elements[name] ? f.elements[name].value : '').trim();
+
+/* ---------- ô nhập tiền: tự thêm dấu chấm khi gõ ---------- */
+function liveMoney(el) {
+  const v = el.value;
+  if (/[a-zđ]/i.test(v.replace(/đ/g, ''))) return; // đang gõ 200k / 1,5tr: định dạng khi rời ô
+  const neg = el.dataset.money === 'signed' && /^\s*[-−]/.test(v);
+  const caret = el.selectionStart ?? v.length;
+  const before = v.slice(0, caret).replace(/\D/g, '').length;
+  const digits = v.replace(/\D/g, '').replace(/^0+(?=\d)/, '');
+  const out = (neg ? '-' : '') + (digits ? grp(Number(digits)) : '');
+  if (out === v) return;
+  el.value = out;
+  let pos = neg ? 1 : 0, seen = 0;
+  while (pos < out.length && seen < before) { if (/\d/.test(out[pos])) seen++; pos++; }
+  try { el.setSelectionRange(pos, pos); } catch (e) { /* bỏ qua */ }
+}
+document.addEventListener('input', e => { if (e.target.matches('[data-money]')) liveMoney(e.target); }, true);
+document.addEventListener('blur', e => {
+  const el = e.target;
+  if (el.matches && el.matches('[data-money]') && el.value) {
+    const n = parseMoney(el.value);
+    el.value = n ? (n < 0 ? '-' : '') + grp(n) : '';
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+}, true);
+
+/* ---------- sự kiện chung ---------- */
+const ACT = {};
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]');
+  if (g) { e.preventDefault(); go(g.dataset.go); return; }
+  const a = e.target.closest('[data-act]');
+  if (a && ACT[a.dataset.act]) { if (a.tagName === 'A' || a.tagName === 'BUTTON') e.preventDefault(); ACT[a.dataset.act](a, e); }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.matches('[data-go][role="link"]')) go(e.target.dataset.go);
+});
+
+/* =====================================================================
+   TỔNG QUAN
+   ===================================================================== */
+function sampleBanner() {
+  if (!S.settings.isSample) return '';
+  return `<div class="banner">${icon('info')}<div class="txt"><b>Đang xem dữ liệu mẫu.</b> Bấm thử thoải mái. Khi muốn ghi sổ thật, xoá dữ liệu mẫu để bắt đầu sổ trống.</div><button class="btn sm" data-act="startReal">Bắt đầu sổ thật</button></div>`;
+}
+function backupBanner() {
+  if (S.settings.isSample || !S.entries.length) return '';
+  const lb = S.settings.lastBackup;
+  if (lb && daysBetween(lb, todayISO()) < 7) return '';
+  return `<div class="banner warn">${icon('alert')}<div class="txt"><b>${lb ? `Đã ${daysBetween(lb, todayISO())} ngày chưa sao lưu.` : 'Chưa sao lưu lần nào.'}</b> Dữ liệu chỉ nằm trên trình duyệt này; nếu xoá lịch sử duyệt web sẽ mất sổ.</div><button class="btn sm" data-act="exportData">${icon('download')}Xuất file sao lưu</button></div>`;
+}
+
+function vDashboard() {
+  const T = todayISO();
+  const rows = S.customers.map(c => ({ c, b: balance(c.id) }));
+  const debtors = rows.filter(x => x.b > 0);
+  const total = sum(debtors.map(x => x.b));
+  const pays = S.entries.filter(e => e.type === 'payment' && e.date === T);
+  const paidToday = -sum(pays.map(e => e.amount));
+  const active = S.trips.filter(t => t.status === 'active').sort((a, b) => a.date < b.date ? 1 : -1);
+  const wOpen = S.warranty.filter(w => w.status !== 'done');
+  const wLate = wOpen.filter(w => (w.status === 'waiting' || w.status === 'sent') && wDays(w) >= WARRANTY_LATE);
+  const wBack = wOpen.filter(w => w.status === 'accepted' || w.status === 'rejected');
+
+  const activeCards = active.map(t => {
+    const k = tripCalc(t);
+    const pct = k.plannedDue ? Math.min(1, k.paid / k.plannedDue) : 0;
+    return `<a class="card li" href="#trip/${t.id}" data-go="trip/${t.id}" style="text-decoration:none;color:inherit"><div class="card-b progress">
+      <div class="prog-top"><div><div class="eyebrow">${chip('Đang đi giao', 'info')} <span class="code">${esc(t.code)}</span> ${fmtDate(t.date)}</div><div style="font-weight:600">${k.visited}/${k.n} khách đã ghé</div></div>
+      <div class="num"><span class="sub">Đã thu</span> <span class="big paid">${money(k.paid)}</span><div class="sub">trên ${money(k.plannedDue)} phải thu</div></div></div>
+      <div class="meter ok"><i style="width:${(pct * 100).toFixed(1)}%"></i></div>
+      <div style="display:flex;justify-content:flex-end"><span class="btn sm primary">Tiếp tục chuyến ${icon('chev')}</span></div></div></a>`;
+  }).join('');
+
+  // nợ theo khu vực
+  const byArea = S.areas.map(a => {
+    const list = debtors.filter(x => x.c.areaId === a.id);
+    return { a, amt: sum(list.map(x => x.b)), n: list.length };
+  });
+  const noArea = debtors.filter(x => !areaOf(x.c.areaId));
+  if (noArea.length) byArea.push({ a: { code: '—', name: 'Chưa gán tuyến' }, amt: sum(noArea.map(x => x.b)), n: noArea.length });
+  const maxA = Math.max(1, ...byArea.map(x => x.amt));
+  const bars = byArea.map(x => `<div class="bar-row"><span class="area">${esc(x.a.code)}</span><div class="meter"><i style="width:${(x.amt / maxA * 100).toFixed(1)}%"></i></div><span class="num amt">${money(x.amt)}</span><span class="meta">${esc(x.a.name)} · ${x.n} khách đang nợ · ${total ? Math.round(x.amt / total * 100) : 0}% tổng nợ</span></div>`).join('');
+
+  // khách cần chú ý
+  const attention = rows.map(x => ({ ...x, st: custStatus(x.c, x.b) }))
+    .filter(x => x.st.flags.some(f => f.k === 'over' || f.k === 'near' || f.k === 'stale'))
+    .sort((a, b) => b.b - a.b).slice(0, 6);
+  const attHTML = attention.length ? attention.map(x => `<a class="li row2" href="#cust/${x.c.id}" data-go="cust/${x.c.id}"><div class="grow"><div class="nm">${esc(x.c.name)} ${areaTag(x.c.areaId)}</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${x.st.flags.map(f => chip(f.t, f.cls)).join('')}</div></div><div class="right"><div class="num debt" style="font-weight:700">${money(x.b)}</div>${x.c.limit ? `<div class="sub num">hạn mức ${money(x.c.limit)}</div>` : ''}</div></a>`).join('')
+    : `<div class="empty">Không có khách nào vượt hạn mức hay quá ${S.settings.staleDays} ngày chưa trả.</div>`;
+
+  const recent = S.trips.filter(t => t.status === 'closed').sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : b.createdAt - a.createdAt)).slice(0, 4);
+  const recentHTML = recent.length ? recent.map(t => { const k = tripCalc(t); return `<a class="li row2" href="#trip/${t.id}" data-go="trip/${t.id}"><div class="grow"><div class="nm"><span class="code">${esc(t.code)}</span> ${fmtDate(t.date)}</div><div class="sub">${k.visited} khách · trả hàng ${money(k.ret)}</div></div><div class="right"><div class="num paid" style="font-weight:600">${money(k.paid)}</div><div class="sub">đã thu</div></div></a>`; }).join('')
+    : '<div class="empty">Chưa có chuyến nào được chốt.</div>';
+
+  if (!S.customers.length) {
+    return header({ eyebrow: fmtDate(T), title: 'Tổng quan' }) + sampleBanner() + `<div class="card"><div class="empty"><b>Sổ đang trống</b>Thêm các tiệm đang lấy hàng, kèm số nợ hiện có trong sổ giấy. Sau đó tạo chuyến đầu tiên.<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><button class="btn primary" data-act="newCustomer">${icon('plus')}Thêm khách hàng</button><button class="btn" data-act="loadSample">Xem dữ liệu mẫu</button></div></div></div>`;
+  }
+
+  return header({ eyebrow: `Hôm nay ${fmtDate(T)}`, title: 'Tổng quan', actions: `<button class="btn primary" data-act="newTrip">${icon('plus')}Tạo chuyến</button>` })
+    + sampleBanner() + backupBanner() + activeCards
+    + `<div class="kpis">
+        <div class="card kpi"><span class="lbl">Tổng nợ phải thu</span><span class="val debt">${money(total)}</span><span class="note">${debtors.length} khách đang nợ</span></div>
+        <div class="card kpi"><span class="lbl">Đã thu hôm nay</span><span class="val paid">${money(paidToday)}</span><span class="note">${pays.length} lần thu</span></div>
+        <div class="card kpi"><span class="lbl">Hàng quay đầu đang xử lý</span><span class="val">${wOpen.length} <small>món</small></span><span class="note">${wLate.length ? `<span class="wait">${wLate.length} món chờ hãng quá ${WARRANTY_LATE} ngày</span>` : 'Không có món chờ quá lâu'}</span></div>
+        <div class="card kpi"><span class="lbl">Hàng cần giao lại khách</span><span class="val">${wBack.length} <small>món</small></span><span class="note">Hàng đổi bảo hành, hàng lỗi trả lại</span></div>
+      </div>
+      <div class="grid-73">
+        <div class="card"><div class="card-h"><h2>Khách cần chú ý</h2><button class="btn sm ghost" data-go="customers">Tất cả khách ${icon('chev')}</button></div><div class="list">${attHTML}</div></div>
+        <div class="card"><div class="card-h"><h2>Nợ theo tuyến</h2></div><div class="card-b bars">${bars || '<div class="empty">Chưa có tuyến.</div>'}</div></div>
+      </div>
+      <div class="card"><div class="card-h"><h2>Chuyến đã chốt gần đây</h2><button class="btn sm ghost" data-go="trips">Tất cả chuyến ${icon('chev')}</button></div><div class="list">${recentHTML}</div></div>`;
+}
+
+/* =====================================================================
+   CHUYẾN HÀNG
+   ===================================================================== */
+const TRIP_STATUS = { draft: ['Nháp', ''], active: ['Đang đi giao', 'info'], closed: ['Đã chốt', 'paid'] };
+function vTrips() {
+  const sorted = [...S.trips].sort((a, b) => a.date < b.date ? 1 : a.date > b.date ? -1 : b.createdAt - a.createdAt);
+  const card = t => {
+    const k = tripCalc(t); const [st, cls] = TRIP_STATUS[t.status];
+    return `<a class="li row2" href="#trip/${t.id}" data-go="trip/${t.id}"><div class="grow"><div class="nm" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="code">${esc(t.code)}</span> ${fmtDate(t.date)} ${chip(st, cls)}</div><div class="sub">${k.n} khách${t.status !== 'draft' ? ` · đã ghé ${k.visited}` : ''}${t.note ? ' · ' + esc(t.note) : ''}</div></div>
+      <div class="right">${t.status === 'draft' ? `<div class="num" style="font-weight:600">${money(k.plannedDue)}</div><div class="sub">phải thu</div>` : `<div class="num paid" style="font-weight:600">${money(k.paid)}</div><div class="sub num">đã thu / ${money(t.status === 'closed' ? k.due : k.plannedDue)}</div>`}</div></a>`;
+  };
+  const sec = (title, list) => list.length ? `<div class="card"><div class="card-h"><h2>${title}</h2><span class="sub">${list.length} chuyến</span></div><div class="list">${list.map(card).join('')}</div></div>` : '';
+  const body = sec('Đang đi giao', sorted.filter(t => t.status === 'active')) + sec('Nháp – chưa đi', sorted.filter(t => t.status === 'draft')) + sec('Đã chốt', sorted.filter(t => t.status === 'closed'));
+  return header({ title: 'Chuyến hàng', actions: `<button class="btn primary" data-act="newTrip">${icon('plus')}Tạo chuyến</button>` })
+    + (body || `<div class="card"><div class="empty"><b>Chưa có chuyến nào</b>Tạo chuyến để lập sổ chốt hàng đi: chọn khách, nhập tiền hàng, hệ thống tự lấy nợ cũ.<button class="btn primary" data-act="newTrip">${icon('plus')}Tạo chuyến</button></div></div>`);
+}
+ACT.newTrip = () => {
+  if (!S.customers.length) { toast('Cần thêm khách hàng trước'); go('customers'); return; }
+  const t = createTrip(todayISO()); save(); go('trip/' + t.id);
+};
+
+function vTrip(id) {
+  const t = tripOf(id); if (!t) return notFound('chuyến này');
+  if (t.status === 'draft') return vTripDraft(t);
+  if (t.status === 'active') return vTripActive(t);
+  return vTripClosed(t);
+}
+
+/* ---- Sổ chốt hàng đi (nháp) ---- */
+function vTripDraft(t) {
+  const k = tripCalc(t);
+  const rows = t.stops.map((s, i) => {
+    const c = custOf(s.customerId); const x = stopCalc(t, s);
+    const over = c && c.limit && x.total > c.limit;
+    return `<div class="li stop-row stop-grid" data-stop="${s.id}">
+      <div class="idx">${i + 1}</div>
+      <div class="who" style="min-width:0"><div class="nm">${esc(c ? c.name : '(khách đã xoá)')} ${c ? areaTag(c.areaId) : ''}</div><div class="sub">${c && c.phone ? esc(c.phone) : ''}</div></div>
+      <div class="old num"><span class="lbl-m">Nợ cũ</span>${money(x.old)}</div>
+      <div class="goods"><label class="lbl-m" for="g-${s.id}">Hàng chuyến này</label>${moneyInput('g-' + s.id, s.goods, `data-goods="${s.id}" aria-label="Hàng chuyến này"`)}</div>
+      <div class="gnote"><label class="lbl-m" for="n-${s.id}">Ghi chú hàng</label><input class="inp" id="n-${s.id}" data-gnote="${s.id}" value="${esc(s.goodsNote)}" placeholder="VD: 3 bộ nhông sên đĩa, 2 bugi" aria-label="Ghi chú hàng"></div>
+      <div class="tot num"><span class="lbl-m">Tổng phải thu</span><span data-tot="${s.id}" class="${over ? 'debt' : ''}">${money(x.total)}</span>${over ? `<div class="sub debt" data-over="${s.id}">vượt hạn mức</div>` : `<div class="sub" data-over="${s.id}"></div>`}</div>
+      <div class="ops"><button class="icon-btn" data-act="moveStop" data-dir="-1" data-id="${s.id}" ${i === 0 ? 'disabled' : ''} aria-label="Lên trên">${icon('up')}</button><button class="icon-btn" data-act="moveStop" data-dir="1" data-id="${s.id}" ${i === t.stops.length - 1 ? 'disabled' : ''} aria-label="Xuống dưới">${icon('down')}</button><button class="icon-btn" data-act="dropStop" data-id="${s.id}" aria-label="Bỏ khách khỏi chuyến">${icon('trash')}</button></div>
+    </div>`;
+  }).join('');
+  return header({ back: 'trips', eyebrow: `Sổ chốt hàng đi ${chip('Nháp')}`, title: `Chuyến <span class="mono">${esc(t.code)}</span>`, actions: `<button class="btn" data-go="print-trip/${t.id}">${icon('print')}Bản in sổ</button><button class="btn danger" data-act="deleteTrip" data-id="${t.id}">${icon('trash')}Xoá nháp</button>` })
+    + `<div class="card card-b form-grid"><div class="field"><label for="tripDate">Ngày đi giao</label><input type="date" class="inp" id="tripDate" value="${t.date}"></div><div class="field"><label for="tripNote">Ghi chú chuyến</label><input class="inp" id="tripNote" value="${esc(t.note)}" placeholder="VD: Tuyến TĐ, xe số 1"></div></div>
+    <div class="card" id="tripEd">
+      <div class="card-h"><h2>Danh sách khách (${t.stops.length})</h2><button class="btn sm" data-act="addStops" data-id="${t.id}">${icon('plus')}Thêm khách</button></div>
+      ${t.stops.length ? `<div class="thead stop-grid"><span>#</span><span>Khách hàng</span><span class="num">Nợ cũ</span><span class="num">Hàng chuyến này</span><span>Ghi chú hàng</span><span class="num">Tổng phải thu</span><span></span></div>
+      <div class="list">${rows}</div>
+      <div class="stop-total stop-grid"><span class="hide-m"></span><span>Tổng cộng</span><span class="num hide-m" id="sumOld">${money(k.old)}</span><span class="num hide-m" id="sumGoods">${money(k.goods)}</span><span class="hide-m"></span><span class="num debt" id="sumDue">${money(k.plannedDue)}</span><span class="hide-m"></span></div>`
+      : `<div class="empty"><b>Chưa có khách</b>Thêm các tiệm sẽ giao trong chuyến này. Nợ cũ của từng tiệm được lấy tự động.<button class="btn primary" data-act="addStops" data-id="${t.id}">${icon('plus')}Thêm khách</button></div>`}
+    </div>
+    <div class="ph-actions no-print" style="justify-content:flex-end"><button class="btn primary lg" data-act="startTrip" data-id="${t.id}" ${t.stops.length ? '' : 'disabled'}>${icon('truck')}Bắt đầu đi giao</button></div>`;
+}
+afterRender.trip = id => {
+  const t = tripOf(id); if (!t || t.status !== 'draft') return;
+  const dt = $('#tripDate'); if (dt) dt.addEventListener('change', () => { if (dt.value) { t.date = dt.value; save(); } });
+  const nt = $('#tripNote'); if (nt) nt.addEventListener('input', () => { t.note = nt.value; persist(); });
+  $('#tripEd').addEventListener('input', e => {
+    const g = e.target.dataset.goods, n = e.target.dataset.gnote;
+    if (g) {
+      const s = t.stops.find(x => x.id === g); if (!s) return;
+      s.goods = Math.max(0, parseMoney(e.target.value));
+      const x = stopCalc(t, s); const c = custOf(s.customerId); const over = c && c.limit && x.total > c.limit;
+      const tot = $(`[data-tot="${g}"]`); tot.textContent = money(x.total); tot.className = over ? 'debt' : '';
+      $(`[data-over="${g}"]`).textContent = over ? 'vượt hạn mức' : '';
+      const k = tripCalc(t); $('#sumGoods').textContent = money(k.goods); $('#sumDue').textContent = money(k.plannedDue);
+      persist();
+    } else if (n) {
+      const s = t.stops.find(x => x.id === n); if (s) { s.goodsNote = e.target.value; persist(); }
+    }
+  });
+};
+ACT.moveStop = el => {
+  const t = tripOf(UI.route.split('/')[1]); const i = t.stops.findIndex(s => s.id === el.dataset.id); const j = i + Number(el.dataset.dir);
+  if (j < 0 || j >= t.stops.length) return;
+  [t.stops[i], t.stops[j]] = [t.stops[j], t.stops[i]]; save(); render();
+};
+ACT.dropStop = async el => {
+  const t = tripOf(UI.route.split('/')[1]); const s = t.stops.find(x => x.id === el.dataset.id); if (!s) return;
+  if (s.visited) {
+    const ok = await confirmBox('Bỏ khách đã ghi phiếu thu?', 'Các dòng giao hàng, trả hàng và thanh toán của khách này trong chuyến sẽ bị xoá khỏi sổ nợ.', 'Bỏ khách', true);
+    if (!ok) return;
+  }
+  removeStop(t, s); save(); render();
+};
+ACT.deleteTrip = async el => {
+  const t = tripOf(el.dataset.id); if (!t) return;
+  const anyVisited = t.stops.some(s => s.visited);
+  const ok = await confirmBox(`Xoá chuyến ${t.code}?`, anyVisited ? 'Chuyến đã có phiếu thu. Xoá chuyến sẽ xoá luôn các dòng sổ nợ và hàng quay đầu ghi trong chuyến.' : 'Chuyến nháp và danh sách khách sẽ bị xoá. Sổ nợ không thay đổi.', 'Xoá chuyến', true);
+  if (!ok) return;
+  deleteTrip(t); save(); toast('Đã xoá chuyến'); go('trips', { force: true });
+};
+ACT.startTrip = el => {
+  const t = tripOf(el.dataset.id); if (!t || !t.stops.length) return;
+  startTrip(t); save(); toast('Bắt đầu đi giao'); render();
+};
+ACT.addStops = el => {
+  const t = tripOf(el.dataset.id); if (!t) return;
+  const inTrip = new Set(t.stops.map(s => s.customerId));
+  const cands = S.customers.filter(c => !inTrip.has(c.id)).sort((a, b) => a.name.localeCompare(b.name, 'vi'));
+  if (!cands.length) { toast('Mọi khách đã có trong chuyến'); return; }
+  const areaBtns = [`<button type="button" data-area="all" aria-pressed="true">Tất cả</button>`].concat(S.areas.map(a => `<button type="button" data-area="${a.id}" aria-pressed="false">${esc(a.code)}</button>`)).join('');
+  const list = cands.map(c => `<label class="check" data-area="${c.areaId || ''}" data-name="${esc((c.name + ' ' + c.owner + ' ' + c.phone).toLowerCase())}"><input type="checkbox" name="pick" value="${c.id}"><div class="grow"><div style="font-weight:600">${esc(c.name)} ${areaTag(c.areaId)}</div><div class="sub">${esc(c.owner || '')}</div></div><div class="num ${balance(c.id) > 0 ? 'debt' : 'muted'}" style="font-weight:600">${money(balance(c.id))}</div></label>`).join('');
+  openDialog({
+    title: 'Thêm khách vào chuyến', okLabel: 'Thêm khách',
+    body: `<div class="seg" id="pickArea">${areaBtns}</div><div class="search">${icon('search')}<input class="inp" id="pickQ" placeholder="Tìm tên tiệm, chủ tiệm, SĐT" autocomplete="off"></div><div class="pick" id="pickList">${list}</div><div class="hint sub">Số bên phải là nợ hiện tại của khách.</div>`,
+    onOpen: d => {
+      let area = 'all';
+      const apply = () => { const q = $('#pickQ', d).value.trim().toLowerCase(); $$('#pickList .check', d).forEach(l => { l.hidden = !((area === 'all' || l.dataset.area === area) && (!q || l.dataset.name.includes(q))); }); };
+      $('#pickArea', d).addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; area = b.dataset.area; $$('#pickArea button', d).forEach(x => x.setAttribute('aria-pressed', x === b)); apply(); });
+      $('#pickQ', d).addEventListener('input', apply);
+      d.querySelector('form').addEventListener('change', () => { const n = $$('input[name=pick]:checked', d).length; d.querySelector('button[type=submit]').textContent = n ? `Thêm ${n} khách` : 'Thêm khách'; });
+    },
+    onOk: f => {
+      const ids = $$('input[name=pick]:checked', f).map(i => i.value);
+      if (!ids.length) return 'Chọn ít nhất một khách.';
+      ids.forEach(id => addStop(t, id)); save(); render(); toast(`Đã thêm ${ids.length} khách`);
+    },
+  });
+};
+
+/* ---- Đang đi giao ---- */
+function stopCardHTML(t, s, i) {
+  const c = custOf(s.customerId); const x = stopCalc(t, s); const st = stopState(t, s);
+  const back = c ? wPendingBack(c.id).length : 0;
+  return `<a class="li stop-card ${s.visited ? 'done' : ''}" href="#stop/${t.id}/${s.id}" data-go="stop/${t.id}/${s.id}">
+    <span class="idx">${s.visited ? icon('check') : i + 1}</span>
+    <div style="min-width:0"><div class="nm">${esc(c ? c.name : '(khách đã xoá)')} ${c ? areaTag(c.areaId) : ''}${back ? chip(`${back} món giao lại`, 'wait') : ''}</div>
+      <div class="sub">${s.visited ? `Phải thu ${money(x.total)} · thu ${money(x.pay)}${x.ret ? ` · trả hàng ${money(x.ret)}` : ''}` : `Nợ cũ ${money(x.old)} · hàng ${money(x.goods)}`}</div></div>
+    <div class="st">${chip(st.t, st.cls)}<span class="num ${s.visited ? (x.remain > 0 ? 'debt' : 'paid') : ''}" style="font-weight:700">${s.visited ? (x.remain > 0 ? 'Nợ lại ' + money(x.remain) : money(x.remain)) : money(x.total)}</span></div>
+  </a>`;
+}
+function vTripActive(t) {
+  const k = tripCalc(t);
+  const pct = k.plannedDue ? Math.min(1, k.paid / k.plannedDue) : 0;
+  return header({ back: 'trips', eyebrow: `${chip('Đang đi giao', 'info')} ${fmtDate(t.date)}${t.note ? ' · ' + esc(t.note) : ''}`, title: `Chuyến <span class="mono">${esc(t.code)}</span>`, actions: `<button class="btn" data-act="addStops" data-id="${t.id}">${icon('plus')}Thêm khách</button><button class="btn" data-go="print-trip/${t.id}">${icon('print')}Bản in sổ</button>` })
+    + `<div class="card card-b progress"><div class="prog-top"><div><div class="sub">Đã thu</div><div class="big paid">${money(k.paid)}</div></div><div class="num"><div class="sub">Phải thu cả chuyến</div><div style="font-weight:700;font-size:18px">${money(k.plannedDue)}</div></div></div><div class="meter ok"><i style="width:${(pct * 100).toFixed(1)}%"></i></div><div class="sub">${k.visited}/${k.n} khách đã ghé${k.ret ? ` · trả hàng ${money(k.ret)}` : ''}${k.qd ? ` · ${k.qd} món quay đầu` : ''}</div></div>
+    <div class="card"><div class="card-h"><h2>Thứ tự giao</h2><span class="sub">Bấm vào khách để mở phiếu thu</span></div><div class="list">${t.stops.map((s, i) => stopCardHTML(t, s, i)).join('')}</div></div>
+    <div class="ph-actions" style="justify-content:flex-end"><button class="btn primary lg" data-go="close/${t.id}">${icon('check')}Chốt chuyến</button></div>`;
+}
+
+/* ---- Tổng kết chuyến (dùng cho chốt chuyến và chuyến đã chốt) ---- */
+function tripSummary(t) {
+  const k = tripCalc(t);
+  const visited = t.stops.filter(s => s.visited);
+  const rows = visited.map(s => { const c = custOf(s.customerId); const x = stopCalc(t, s); return `<a class="li row2" href="#stop/${t.id}/${s.id}" data-go="stop/${t.id}/${s.id}"><div class="grow"><div class="nm">${esc(c ? c.name : '?')} ${c ? areaTag(c.areaId) : ''}</div><div class="sub num" style="text-align:left">Phải thu ${money(x.total)}${x.ret ? ` · trả hàng ${money(x.ret)}` : ''} · thu ${money(x.pay)}</div></div><div class="right"><div class="num ${x.remain > 0 ? 'debt' : 'paid'}" style="font-weight:700">${money(x.remain)}</div><div class="sub">nợ lại</div></div></a>`; }).join('');
+  return `<div class="kpis k5">
+      <div class="card kpi"><span class="lbl">Tổng phải thu</span><span class="val">${money(k.due)}</span><span class="note">${k.visited} khách đã ghé</span></div>
+      <div class="card kpi"><span class="lbl">Hàng trả lại</span><span class="val">${money(k.ret)}</span><span class="note">Nguyên mác, đã trừ nợ</span></div>
+      <div class="card kpi"><span class="lbl">Tiền đã thu</span><span class="val paid">${money(k.paid)}</span><span class="note">Tiền mặt và chuyển khoản</span></div>
+      <div class="card kpi"><span class="lbl">Tổng nợ lại</span><span class="val debt">${money(k.remain)}</span><span class="note">Thành nợ cũ chuyến sau</span></div>
+      <div class="card kpi"><span class="lbl">Hàng quay đầu mang về</span><span class="val">${k.qd} <small>món</small></span><span class="note">Chưa trừ tiền</span></div>
+    </div>
+    <div class="card"><div class="card-h"><h2>Từng khách</h2></div><div class="list">${rows || '<div class="empty">Chưa ghé khách nào.</div>'}</div></div>`;
+}
+function vClose(id) {
+  const t = tripOf(id); if (!t) return notFound('chuyến này');
+  if (t.status !== 'active') return vTrip(id);
+  const unvisited = t.stops.filter(s => !s.visited);
+  const warn = unvisited.length ? `<div class="banner warn">${icon('alert')}<div class="txt"><b>${unvisited.length} khách chưa ghé:</b> ${unvisited.map(s => esc((custOf(s.customerId) || {}).name || '?')).join(', ')}. Hàng của các khách này coi như chưa giao, không cộng vào nợ.</div></div>` : '';
+  return header({ back: 'trip/' + t.id, eyebrow: `Chuyến <span class="code">${esc(t.code)}</span> ${fmtDate(t.date)}`, title: 'Chốt chuyến' })
+    + warn + tripSummary(t)
+    + `<div class="ph-actions" style="justify-content:flex-end"><button class="btn lg" data-go="trip/${t.id}">Quay lại chuyến</button><button class="btn primary lg" data-act="closeTrip" data-id="${t.id}">${icon('check')}Chốt chuyến</button></div>`;
+}
+ACT.closeTrip = el => { const t = tripOf(el.dataset.id); if (!t) return; closeTrip(t); save(); toast('Đã chốt chuyến'); go('trip/' + t.id, { force: true }); };
+function vTripClosed(t) {
+  const closed = t.closedAt ? new Date(t.closedAt) : null;
+  return header({ back: 'trips', eyebrow: `${chip('Đã chốt', 'paid')} ${fmtDate(t.date)}${closed ? ` · chốt lúc ${pad(closed.getHours())}:${pad(closed.getMinutes())} ${fmtDate(isoOf(closed))}` : ''}`, title: `Chuyến <span class="mono">${esc(t.code)}</span>`, actions: `<button class="btn" data-go="print-trip/${t.id}">${icon('print')}Bản in sổ</button><button class="btn" data-act="reopenTrip" data-id="${t.id}">${icon('undo')}Mở lại để sửa</button>` })
+    + tripSummary(t)
+    + (t.stops.some(s => !s.visited) ? `<div class="card"><div class="card-h"><h2>Không ghé trong chuyến</h2></div><div class="list">${t.stops.filter(s => !s.visited).map(s => { const c = custOf(s.customerId); return `<div class="li row2"><div class="grow"><div class="nm">${esc(c ? c.name : '?')}</div><div class="sub">Hàng dự kiến ${money(s.goods)} chưa giao</div></div></div>`; }).join('')}</div></div>` : '');
+}
+ACT.reopenTrip = async el => {
+  const t = tripOf(el.dataset.id); if (!t) return;
+  const ok = await confirmBox('Mở lại chuyến?', 'Chuyến trở về trạng thái đang đi giao để bạn sửa phiếu thu. Nhớ chốt lại sau khi sửa xong.', 'Mở lại');
+  if (!ok) return; reopenTrip(t); save(); render();
+};
+
+/* ---- Phiếu thu ---- */
+function vStop(tid, sid) {
+  const t = tripOf(tid); const s = t && t.stops.find(x => x.id === sid);
+  if (!t || !s) return notFound('phiếu thu này');
+  const c = custOf(s.customerId); if (!c) return notFound('khách hàng');
+  const ro = t.status === 'closed';
+  if (!UI.draft || UI.draft.sid !== sid) {
+    const qd = S.warranty.filter(w => w.stopId === s.id).map(w => ({ id: w.id, name: w.name, brandId: w.brandId, qty: w.qty, value: w.value, defect: w.defect, status: w.status }));
+    const back = new Set(S.warranty.filter(w => w.customerId === c.id && w.status === 'done' && w.doneStopId === s.id).map(w => w.id));
+    UI.draft = { sid, dirty: false, goods: s.goods, goodsNote: s.goodsNote, returns: s.returns.map(r => ({ ...r })), qd, back, payment: s.visited ? s.payment : null };
+  }
+  const D = UI.draft;
+  const old = s.oldDebt != null ? s.oldDebt : balance(c.id, t.id);
+  const backList = S.warranty.filter(w => w.customerId === c.id && ((w.status === 'accepted' || w.status === 'rejected') || (w.status === 'done' && w.doneStopId === s.id)));
+  const dis = ro ? 'disabled' : '';
+  return header({ back: 'trip/' + t.id, eyebrow: `Phiếu thu · <span class="code">${esc(t.code)}</span> ${fmtDate(t.date)}`, title: `${esc(c.name)} ${areaTag(c.areaId)}`, actions: c.phone ? `<span class="btn ghost" style="cursor:default">${icon('phone')}${phoneHTML(c.phone)}</span>` : '' })
+    + (ro ? `<div class="banner">${icon('info')}<div class="txt">Chuyến đã chốt nên phiếu này chỉ để xem. Muốn sửa, mở lại chuyến.</div><button class="btn sm" data-act="reopenTrip" data-id="${t.id}">Mở lại chuyến</button></div>` : '')
+    + `<div class="card"><div class="card-h"><h2>Tiền hàng</h2>${c.limit ? `<span class="sub num">Hạn mức ${money(c.limit)}</span>` : ''}</div><div class="card-b" style="display:flex;flex-direction:column;gap:14px">
+        <div class="rc-sum"><div class="cell"><div class="k">Nợ cũ</div><div class="v">${money(old)}</div></div><div class="cell"><div class="k">Hàng chuyến này</div><div class="v" id="rcGoods">${money(D.goods)}</div></div><div class="cell total"><div class="k">Tổng phải thu</div><div class="v" id="rcTotal">${money(old + (D.goods || 0))}</div></div></div>
+        <div class="form-grid"><div class="field"><label for="dGoods">Hàng chuyến này</label>${moneyInput('dGoods', D.goods, dis)}</div><div class="field"><label for="dGoodsNote">Ghi chú hàng</label><input class="inp" id="dGoodsNote" value="${esc(D.goodsNote)}" placeholder="VD: 3 bộ nhông sên đĩa" ${dis}></div></div>
+      </div></div>
+      <div class="card"><div class="card-h"><h2>Hàng nguyên mác trả lại</h2>${ro ? '' : `<button class="btn sm" data-act="addReturn">${icon('plus')}Thêm món</button>`}</div><div class="card-b" id="retList"></div></div>
+      <div class="card"><div class="card-h"><h2>Hàng quay đầu cầm về</h2>${ro ? '' : `<button class="btn sm" data-act="addQD">${icon('plus')}Thêm món</button>`}</div><div class="card-b" id="qdList"></div></div>
+      ${backList.length ? `<div class="card"><div class="card-h"><h2>Hàng cần giao lại cho khách</h2><span class="sub">Tick khi đã đưa cho khách</span></div><div class="card-b">${backList.map(w => { const b = brandOf(w.brandId); const kind = (w.status === 'accepted' || w.outcome === 'exchanged') ? 'Hàng đổi bảo hành' : 'Trả lại hàng lỗi'; return `<label class="check item"><input type="checkbox" data-back="${w.id}" ${D.back.has(w.id) ? 'checked' : ''} ${dis}><div class="grow"><div class="nm">${esc(w.name)} × ${w.qty}</div><div class="sub">${kind} · ${esc(b ? b.name : '')} · nhận ${fmtDate(w.receivedDate)}</div></div></label>`; }).join('')}</div></div>` : ''}
+      <div class="card"><div class="card-h"><h2>Khách thanh toán</h2></div><div class="card-b">
+        <div class="field"><label for="dPay" class="sr">Số tiền khách trả</label>${moneyInput('dPay', D.payment, dis, 'pay-inp')}</div>
+        ${ro ? '' : `<div class="quick"><button class="btn sm" data-act="payFull">Trả đủ</button><button class="btn sm" data-act="payZero">Không trả</button><span class="sub" style="align-self:center">Gõ nhanh: 500k, 1,5tr</span></div>`}
+      </div></div>
+      <div class="savebar"><div><div class="k">Nợ lại</div><div class="v" id="rcRemain"></div></div>${ro ? '' : `<button class="btn primary lg" data-act="saveStop">${icon('check')}Lưu phiếu</button>`}</div>`;
+}
+function stopDraftCalc() {
+  const [, tid, sid] = UI.route.split('/'); const t = tripOf(tid); const s = t.stops.find(x => x.id === sid);
+  const old = s.oldDebt != null ? s.oldDebt : balance(s.customerId, t.id);
+  const D = UI.draft; const ret = sum(D.returns.map(r => r.value));
+  const total = old + (D.goods || 0);
+  return { t, s, old, total, ret, remain: total - ret - (D.payment || 0) };
+}
+function paintStop() {
+  const D = UI.draft; if (!D) return;
+  const x = stopDraftCalc(); const ro = x.t.status === 'closed';
+  $('#rcGoods').textContent = money(D.goods); $('#rcTotal').textContent = money(x.total);
+  const r = $('#rcRemain'); r.textContent = money(x.remain); r.className = 'v ' + (x.remain > 0 ? 'debt' : 'paid');
+  $('#retList').innerHTML = D.returns.length
+    ? D.returns.map((it, i) => `<div class="item"><div class="grow"><div class="nm">${esc(it.name)} × ${it.qty}</div></div><span class="num paid" style="font-weight:600">−${grp(it.value)} đ</span>${ro ? '' : `<button class="icon-btn" data-act="delReturn" data-i="${i}" aria-label="Xoá món">${icon('trash')}</button>`}</div>`).join('') + `<div class="item"><div class="grow sub">Trừ vào tổng phải thu</div><span class="num paid" style="font-weight:700">−${grp(x.ret)} đ</span>${ro ? '' : '<span style="width:40px"></span>'}</div>`
+    : '<div class="sub">Không có hàng nguyên mác trả lại.</div>';
+  $('#qdList').innerHTML = D.qd.length
+    ? D.qd.map((it, i) => { const b = brandOf(it.brandId); const locked = it.status && it.status !== 'waiting'; return `<div class="item"><div class="grow"><div class="nm">${esc(it.name)} × ${it.qty}</div><div class="sub">${esc(b ? b.name : 'Chưa chọn hãng')}${it.defect ? ' · ' + esc(it.defect) : ''}${it.value ? ' · giá trị ' + money(it.value) : ''}</div><div style="margin-top:4px;display:flex;gap:6px;flex-wrap:wrap">${chip(locked ? W_TAB[wTabOf(it)] : 'Chờ hãng', 'wait')}${chip('Không trừ tiền')}${b && !b.accepts ? chip('Hãng không nhận quay đầu', 'debt') : ''}</div></div>${ro || locked ? '' : `<button class="icon-btn" data-act="delQD" data-i="${i}" aria-label="Xoá món">${icon('trash')}</button>`}</div>`; }).join('')
+    : '<div class="sub">Không có hàng lỗi cầm về. Hàng quay đầu không làm thay đổi nợ.</div>';
+}
+afterRender.stop = () => {
+  if (!UI.draft) return;
+  paintStop();
+  const D = UI.draft;
+  const g = $('#dGoods'), n = $('#dGoodsNote'), p = $('#dPay');
+  g && g.addEventListener('input', () => { D.goods = Math.max(0, parseMoney(g.value)); D.dirty = true; paintStop(); });
+  n && n.addEventListener('input', () => { D.goodsNote = n.value; D.dirty = true; });
+  p && p.addEventListener('input', () => { D.payment = p.value.trim() === '' ? null : Math.max(0, parseMoney(p.value)); D.dirty = true; paintStop(); });
+  $$('[data-back]').forEach(cb => cb.addEventListener('change', () => { cb.checked ? D.back.add(cb.dataset.back) : D.back.delete(cb.dataset.back); D.dirty = true; }));
+};
+ACT.payFull = () => { const x = stopDraftCalc(); const v = Math.max(0, x.total - x.ret); UI.draft.payment = v; UI.draft.dirty = true; $('#dPay').value = grp(v); paintStop(); };
+ACT.payZero = () => { UI.draft.payment = 0; UI.draft.dirty = true; $('#dPay').value = '0'; paintStop(); };
+ACT.delReturn = el => { UI.draft.returns.splice(Number(el.dataset.i), 1); UI.draft.dirty = true; paintStop(); };
+ACT.delQD = el => { UI.draft.qd.splice(Number(el.dataset.i), 1); UI.draft.dirty = true; paintStop(); };
+ACT.addReturn = () => {
+  openDialog({
+    title: 'Hàng nguyên mác trả lại', okLabel: 'Thêm món',
+    body: `<div class="field"><label for="rName">Tên hàng</label><input class="inp" id="rName" name="name" placeholder="VD: Má phanh trước" autocomplete="off"></div><div class="form-grid"><div class="field"><label for="rQty">Số lượng</label><input class="inp" id="rQty" name="qty" type="number" min="1" value="1" inputmode="numeric"></div><div class="field"><label for="rVal">Thành tiền (trừ vào nợ)</label>${moneyInput('rVal', 0, 'name="value"')}</div></div>`,
+    onOk: f => {
+      const name = val(f, 'name'), qty = Math.max(1, parseInt(val(f, 'qty'), 10) || 1), value = parseMoney(val(f, 'value'));
+      if (!name) return 'Nhập tên hàng.'; if (value <= 0) return 'Nhập thành tiền lớn hơn 0.';
+      UI.draft.returns.push({ id: uid(), name, qty, value }); UI.draft.dirty = true; paintStop();
+    },
+  });
+};
+function brandSelect(sel) {
+  return `<select class="inp" id="qBrand" name="brand"><option value="">— Chọn hãng —</option>${S.brands.map(b => `<option value="${b.id}" ${sel === b.id ? 'selected' : ''}>${esc(b.name)}${b.accepts ? '' : ' (không nhận quay đầu)'}</option>`).join('')}<option value="__new">+ Thêm hãng mới…</option></select><input class="inp" id="qBrandNew" name="brandNew" placeholder="Tên hãng mới" hidden style="margin-top:8px">`;
+}
+function bindBrandSelect(d) {
+  const s = $('#qBrand', d), nw = $('#qBrandNew', d), warn = $('#qWarn', d);
+  const upd = () => { nw.hidden = s.value !== '__new'; const b = brandOf(s.value); warn.textContent = b && !b.accepts ? `${b.name} không nhận hàng quay đầu. Nếu cầm về, món này sẽ phải trả lại cho khách.` : ''; };
+  s.addEventListener('change', upd); upd();
+}
+function readBrand(f) {
+  const v = val(f, 'brand');
+  if (v === '__new') { const nm = val(f, 'brandNew'); if (!nm) return { err: 'Nhập tên hãng mới.' }; const b = { id: uid(), name: nm, accepts: true }; S.brands.push(b); return { id: b.id }; }
+  if (!v) return { err: 'Chọn hãng của món hàng.' };
+  return { id: v };
+}
+const qdFields = () => `<div class="field"><label for="qName">Tên hàng</label><input class="inp" id="qName" name="name" placeholder="VD: IC Wave Alpha" autocomplete="off"></div>
+  <div class="field"><label for="qBrand">Hãng</label>${brandSelect('')}<div class="hint wait" id="qWarn"></div></div>
+  <div class="form-grid"><div class="field"><label for="qQty">Số lượng</label><input class="inp" id="qQty" name="qty" type="number" min="1" value="1" inputmode="numeric"></div><div class="field"><label for="qVal">Giá trị (để tham khảo)</label>${moneyInput('qVal', 0, 'name="value"')}</div></div>
+  <div class="field"><label for="qDefect">Lỗi khách báo</label><input class="inp" id="qDefect" name="defect" placeholder="VD: xe không nổ máy"></div>
+  <p class="hint sub" style="margin:0">Hàng quay đầu không trừ vào nợ. Khi hãng nhận, chuyến sau giao hàng đổi cho khách.</p>`;
+ACT.addQD = () => {
+  openDialog({
+    title: 'Hàng quay đầu cầm về', okLabel: 'Thêm món', body: qdFields(), onOpen: bindBrandSelect,
+    onOk: f => {
+      const name = val(f, 'name'); if (!name) return 'Nhập tên hàng.';
+      const b = readBrand(f); if (b.err) return b.err;
+      UI.draft.qd.push({ id: uid(), name, brandId: b.id, qty: Math.max(1, parseInt(val(f, 'qty'), 10) || 1), value: parseMoney(val(f, 'value')), defect: val(f, 'defect') });
+      UI.draft.dirty = true; save(); paintStop();
+    },
+  });
+};
+ACT.saveStop = () => {
+  const x = stopDraftCalc(); const D = UI.draft;
+  if (D.payment == null) { D.payment = 0; }
+  saveStop(x.t, x.s, D); save();
+  UI.draft = null; toast('Đã lưu phiếu thu');
+  go('trip/' + x.t.id, { force: true });
+};
+
+/* =====================================================================
+   KHÁCH HÀNG
+   ===================================================================== */
+function vCustomers() {
+  const areaBtns = [`<button type="button" data-carea="all" aria-pressed="${UI.custArea === 'all'}">Tất cả</button>`].concat(S.areas.map(a => `<button type="button" data-carea="${a.id}" aria-pressed="${UI.custArea === a.id}">${esc(a.code)}</button>`)).join('');
+  return header({ title: `Khách hàng <span class="muted" style="font-weight:500">(${S.customers.length})</span>`, actions: `<button class="btn primary" data-act="newCustomer">${icon('plus')}Thêm khách</button>` })
+    + sampleBanner()
+    + `<div class="card"><div class="toolbar"><div class="search">${icon('search')}<input class="inp" id="custQ" value="${esc(UI.custQ)}" placeholder="Tìm tên tiệm, chủ tiệm, số điện thoại" autocomplete="off" aria-label="Tìm khách"></div><div class="seg" id="custArea">${areaBtns}</div>
+      <select class="inp" id="custSort" style="width:auto;min-height:36px" aria-label="Sắp xếp"><option value="debt" ${UI.custSort === 'debt' ? 'selected' : ''}>Nợ nhiều nhất</option><option value="stale" ${UI.custSort === 'stale' ? 'selected' : ''}>Lâu chưa trả nhất</option><option value="name" ${UI.custSort === 'name' ? 'selected' : ''}>Tên A–Z</option></select></div>
+      <div class="thead cust-grid"><span>Khách hàng</span><span>Tuyến</span><span class="num">Nợ hiện tại</span><span>Hạn mức đã dùng</span><span>Lần trả gần nhất</span></div>
+      <div class="list" id="custList"></div></div>`;
+}
+function paintCustomers() {
+  const q = UI.custQ.trim().toLowerCase();
+  let rows = S.customers.map(c => ({ c, b: balance(c.id) }))
+    .filter(x => (UI.custArea === 'all' || x.c.areaId === UI.custArea) && (!q || (x.c.name + ' ' + x.c.owner + ' ' + x.c.phone).toLowerCase().includes(q)));
+  if (UI.custSort === 'debt') rows.sort((a, b) => b.b - a.b);
+  else if (UI.custSort === 'stale') rows.sort((a, b) => (b.b > 0 ? daysUnpaid(b.c.id) : -1) - (a.b > 0 ? daysUnpaid(a.c.id) : -1));
+  else rows.sort((a, b) => a.c.name.localeCompare(b.c.name, 'vi'));
+  $('#custList').innerHTML = rows.length ? rows.map(({ c, b }) => {
+    const st = custStatus(c, b); const lp = lastPaymentDate(c.id);
+    return `<a class="li cust-row cust-grid" href="#cust/${c.id}" data-go="cust/${c.id}">
+      <div class="c-n" style="min-width:0"><div class="nm">${esc(c.name)} ${st.flags.map(f => chip(f.t, f.cls)).join('')}</div><div class="sub">${[c.owner ? esc(c.owner) : '', c.phone ? `<span style="white-space:nowrap">${esc(c.phone)}</span>` : ''].filter(Boolean).join(' · ')}</div></div>
+      <div class="c-a">${areaTag(c.areaId)}</div>
+      <div class="c-debt num ${b > 0 ? 'debt' : b < 0 ? 'paid' : 'muted'}">${money(b)}</div>
+      <div class="lim">${c.limit ? `<div class="meter ${meterCls(st.pct)}"><i style="width:${Math.min(100, Math.max(0, st.pct * 100)).toFixed(1)}%"></i></div><div class="sub num" style="text-align:left">${Math.round(st.pct * 100)}% của ${money(c.limit)}</div>` : '<span class="sub">Chưa đặt hạn mức</span>'}</div>
+      <div class="c-last">${lp ? `<span class="num">${fmtDate(lp)}</span> <span class="sub">${ago(daysBetween(lp, todayISO()))}</span>` : '<span class="sub">Chưa trả lần nào</span>'}</div>
+    </a>`;
+  }).join('') : `<div class="empty">${S.customers.length ? 'Không có khách khớp bộ lọc.' : `<b>Chưa có khách hàng</b>Thêm tiệm đầu tiên, kèm số nợ đang có trong sổ giấy.<button class="btn primary" data-act="newCustomer">${icon('plus')}Thêm khách</button>`}</div>`;
+}
+afterRender.customers = () => {
+  paintCustomers();
+  $('#custQ').addEventListener('input', e => { UI.custQ = e.target.value; paintCustomers(); });
+  $('#custSort').addEventListener('change', e => { UI.custSort = e.target.value; paintCustomers(); });
+  $('#custArea').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; UI.custArea = b.dataset.carea; $$('#custArea button').forEach(x => x.setAttribute('aria-pressed', x === b)); paintCustomers(); });
+};
+
+function customerForm(c) {
+  const isNew = !c; c = c || {};
+  return `<div class="field"><label for="cName">Tên tiệm</label><input class="inp" id="cName" name="name" value="${esc(c.name)}" placeholder="VD: Tiệm Tuấn" autocomplete="off"></div>
+  <div class="form-grid"><div class="field"><label for="cOwner">Chủ tiệm</label><input class="inp" id="cOwner" name="owner" value="${esc(c.owner)}" placeholder="VD: Anh Tuấn"></div><div class="field"><label for="cPhone">Số điện thoại</label><input class="inp" id="cPhone" name="phone" value="${esc(c.phone)}" inputmode="tel" placeholder="0908 123 456"></div></div>
+  <div class="field"><label for="cAddr">Địa chỉ</label><input class="inp" id="cAddr" name="address" value="${esc(c.address)}"></div>
+  <div class="form-grid"><div class="field"><label for="cArea">Tuyến</label><select class="inp" id="cArea" name="areaId"><option value="">— Chưa gán —</option>${S.areas.map(a => `<option value="${a.id}" ${c.areaId === a.id ? 'selected' : ''}>${esc(a.code)} · ${esc(a.name)}</option>`).join('')}</select></div>
+  <div class="field"><label for="cLimit">Hạn mức nợ</label>${moneyInput('cLimit', c.limit, 'name="limit"')}<span class="hint">Để trống nếu không giới hạn</span></div></div>
+  ${isNew ? `<div class="field"><label for="cOpen">Nợ hiện có trong sổ giấy</label>${moneyInput('cOpen', 0, 'name="opening"')}<span class="hint">Ghi thành dòng "Nợ đầu kỳ" ngày hôm nay</span></div>` : ''}
+  <div class="field"><label for="cNote">Ghi chú</label><input class="inp" id="cNote" name="note" value="${esc(c.note)}" placeholder="VD: chỉ giao buổi sáng"></div>`;
+}
+function readCustomer(f) {
+  const d = { name: val(f, 'name'), owner: val(f, 'owner'), phone: val(f, 'phone'), address: val(f, 'address'), areaId: val(f, 'areaId') || null, limit: Math.max(0, parseMoney(val(f, 'limit'))), note: val(f, 'note'), opening: parseMoney(val(f, 'opening')) };
+  if (!d.name) return { err: 'Nhập tên tiệm.' };
+  return d;
+}
+ACT.newCustomer = () => openDialog({
+  title: 'Thêm khách hàng', okLabel: 'Thêm khách', body: customerForm(null),
+  onOk: f => {
+    const d = readCustomer(f); if (d.err) return d.err;
+    if (S.customers.some(c => c.name.toLowerCase() === d.name.toLowerCase())) return `Đã có khách tên "${d.name}". Đặt tên khác để dễ phân biệt.`;
+    const c = createCustomer(d); save(); toast('Đã thêm khách'); go('cust/' + c.id);
+  },
+});
+ACT.editCustomer = el => {
+  const c = custOf(el.dataset.id); if (!c) return;
+  openDialog({
+    title: 'Sửa thông tin khách', body: customerForm(c),
+    onOk: f => { const d = readCustomer(f); if (d.err) return d.err; Object.assign(c, { name: d.name, owner: d.owner, phone: d.phone, address: d.address, areaId: d.areaId, limit: d.limit, note: d.note }); save(); render(); toast('Đã lưu'); },
+  });
+};
+ACT.deleteCustomer = async el => {
+  const c = custOf(el.dataset.id); if (!c) return;
+  const ok = await confirmBox(`Xoá ${c.name}?`, 'Khách chưa có phát sinh nào nên có thể xoá.', 'Xoá khách', true);
+  if (!ok) return; S.customers = S.customers.filter(x => x.id !== c.id); save(); toast('Đã xoá khách'); go('customers');
+};
+
+function vCustomer(id) {
+  const c = custOf(id); if (!c) return notFound('khách hàng');
+  const b = balance(c.id); const st = custStatus(c, b); const lp = lastPaymentDate(c.id);
+  const ents = entriesOf(c.id); const used = ents.length || S.trips.some(t => t.stops.some(s => s.customerId === c.id)) || S.warranty.some(w => w.customerId === c.id);
+  const ws = S.warranty.filter(w => w.customerId === c.id);
+  let run = 0;
+  const ledger = ents.map(e => {
+    run += e.amount; const t = e.tripId ? tripOf(e.tripId) : null; const manual = !e.tripId;
+    return `<div class="li led-row led-grid"><span class="d num" style="text-align:left">${fmtDate(e.date)}</span><span class="c">${t ? `<a class="code" href="#trip/${t.id}" data-go="trip/${t.id}">${esc(t.code)}</a>` : '<span class="muted">—</span>'}</span>
+      <div class="what"><div class="t">${esc(entryLabel(e))}</div>${e.note ? `<div class="sub">${esc(e.note)}</div>` : ''}<div class="meta-m">${fmtDate(e.date)}${t ? ` <span class="code">${esc(t.code)}</span>` : ''}</div></div>
+      <span class="inc num debt">${e.amount > 0 ? money(e.amount, true) : ''}</span><span class="dec num paid">${e.amount < 0 ? money(e.amount) : ''}</span>
+      <span class="bal num">${money(run)}</span>
+      <span class="del">${manual ? `<button class="icon-btn" data-act="delEntry" data-id="${e.id}" aria-label="Xoá dòng">${icon('trash')}</button>` : ''}</span></div>`;
+  }).join('');
+  const inc = sum(ents.filter(e => e.amount > 0).map(e => e.amount)), dec = sum(ents.filter(e => e.amount < 0).map(e => e.amount));
+  const wRows = ws.length ? ws.sort((a, b) => a.receivedDate < b.receivedDate ? 1 : -1).map(w => { const br = brandOf(w.brandId); return `<div class="li row2"><div class="grow"><div class="nm">${esc(w.name)} × ${w.qty}</div><div class="sub">${esc(br ? br.name : '')} · nhận ${fmtDate(w.receivedDate)}${w.defect ? ' · ' + esc(w.defect) : ''}</div></div><div class="right">${chip(w.status === 'done' ? (w.outcome === 'exchanged' ? 'Đã giao hàng đổi' : 'Đã trả lại khách') : W_TAB[wTabOf(w)], w.status === 'done' ? 'paid' : 'wait')}</div></div>`; }).join('') : '<div class="empty">Khách chưa có hàng quay đầu.</div>';
+
+  return header({ back: 'customers', eyebrow: `Khách hàng ${areaTag(c.areaId)}`, title: esc(c.name), actions: `<button class="btn" data-act="editCustomer" data-id="${c.id}">${icon('edit')}Sửa</button><button class="btn" data-go="print-cust/${c.id}">${icon('print')}Bản đối chiếu</button>${used ? '' : `<button class="btn danger" data-act="deleteCustomer" data-id="${c.id}">${icon('trash')}Xoá</button>`}` })
+    + `<div class="grid-2">
+      <div class="card card-b" style="display:flex;flex-direction:column;gap:10px">
+        ${[['Chủ tiệm', esc(c.owner)], ['Điện thoại', c.phone ? `${phoneHTML(c.phone)} <button class="icon-btn" style="width:30px;height:30px" data-act="copy" data-text="${esc(c.phone)}" aria-label="Chép số điện thoại">${icon('copy')}</button>` : ''], ['Địa chỉ', esc(c.address)], ['Tuyến', (areaOf(c.areaId) || {}).name ? esc(areaOf(c.areaId).name) : ''], ['Ghi chú', esc(c.note)]].map(([k, v]) => `<div style="display:flex;gap:12px;align-items:center"><span class="sub" style="width:92px;flex:none">${k}</span><span style="min-width:0">${v || '<span class="muted">—</span>'}</span></div>`).join('')}
+      </div>
+      <div class="card card-b" style="display:flex;flex-direction:column;gap:12px">
+        <div><div class="sub">Nợ hiện tại</div><div style="font-size:30px;font-weight:800;letter-spacing:-.02em" class="num ${b > 0 ? 'debt' : b < 0 ? 'paid' : ''}" >${money(b)}</div><div style="display:flex;gap:6px;flex-wrap:wrap">${st.flags.map(f => chip(f.t, f.cls)).join('')}</div></div>
+        ${c.limit ? `<div><div class="meter ${meterCls(st.pct)}"><i style="width:${Math.min(100, Math.max(0, st.pct * 100)).toFixed(1)}%"></i></div><div class="sub" style="margin-top:4px">Đã dùng ${Math.round(st.pct * 100)}% hạn mức ${money(c.limit)} · còn ${money(Math.max(0, c.limit - b))}</div></div>` : '<div class="sub">Chưa đặt hạn mức nợ.</div>'}
+        <div class="sub">Lần trả gần nhất: ${lp ? `${fmtDate(lp)} (${ago(daysBetween(lp, todayISO()))})` : 'chưa có'}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" data-act="payAtShop" data-id="${c.id}">${icon('cash')}Thu tiền tại kho</button><button class="btn" data-act="adjust" data-id="${c.id}">Điều chỉnh nợ</button></div>
+      </div></div>
+    <div class="card"><div class="tabs" role="tablist"><button role="tab" aria-selected="${UI.custTab === 'ledger'}" data-act="custTab" data-tab="ledger">${icon('book')}Sổ công nợ</button><button role="tab" aria-selected="${UI.custTab === 'w'}" data-act="custTab" data-tab="w">${icon('ret')}Hàng quay đầu <span class="n">${ws.length}</span></button></div>
+      ${UI.custTab === 'ledger' ? (ents.length ? `<div class="thead led-grid"><span>Ngày</span><span>Chuyến</span><span>Nội dung</span><span class="num">Tăng nợ</span><span class="num">Giảm nợ</span><span class="num">Số dư</span><span></span></div><div class="list">${ledger}</div>
+      <div class="led-total led-grid"><span class="hide-m"></span><span class="hide-m"></span><span>Số dư hiện tại</span><span class="num debt hide-m">${money(inc, true)}</span><span class="num paid hide-m">${money(dec)}</span><span class="num ${b > 0 ? 'debt' : ''}">${money(b)}</span><span class="hide-m"></span></div>` : '<div class="empty">Chưa có phát sinh nào.</div>') : `<div class="list">${wRows}</div>`}
+    </div>`;
+}
+ACT.custTab = el => { UI.custTab = el.dataset.tab; render(); };
+ACT.copy = el => {
+  const txt = el.dataset.text;
+  try { navigator.clipboard.writeText(txt).then(() => toast('Đã chép ' + txt), () => toast(txt)); } catch (e) { toast(txt); }
+};
+ACT.payAtShop = el => {
+  const c = custOf(el.dataset.id); if (!c) return;
+  openDialog({
+    title: `Thu tiền – ${c.name}`, okLabel: 'Ghi khoản thu',
+    body: `<div class="sub">Nợ hiện tại: <b class="debt">${money(balance(c.id))}</b></div><div class="field"><label for="pAmt">Số tiền khách trả</label>${moneyInput('pAmt', 0, 'name="amt"', 'pay-inp')}</div><div class="form-grid"><div class="field"><label for="pDate">Ngày</label><input type="date" class="inp" id="pDate" name="date" value="${todayISO()}"></div><div class="field"><label for="pNote">Ghi chú</label><input class="inp" id="pNote" name="note" placeholder="VD: chuyển khoản"></div></div>`,
+    onOk: f => { const amt = parseMoney(val(f, 'amt')); if (amt <= 0) return 'Nhập số tiền lớn hơn 0.'; addEntry({ customerId: c.id, date: val(f, 'date') || todayISO(), type: 'payment', amount: -amt, note: val(f, 'note') }); save(); render(); toast('Đã ghi khoản thu'); },
+  });
+};
+ACT.adjust = el => {
+  const c = custOf(el.dataset.id); if (!c) return;
+  openDialog({
+    title: `Điều chỉnh nợ – ${c.name}`, okLabel: 'Ghi điều chỉnh',
+    body: `<div class="seg" role="radiogroup"><label class="check" style="align-items:center"><input type="radio" name="dir" value="1" checked> Tăng nợ</label><label class="check" style="align-items:center"><input type="radio" name="dir" value="-1"> Giảm nợ</label></div><div class="field"><label for="aAmt">Số tiền</label>${moneyInput('aAmt', 0, 'name="amt"')}</div><div class="field"><label for="aWhy">Lý do</label><input class="inp" id="aWhy" name="why" placeholder="VD: ghi nhầm chuyến trước, chiết khấu"></div><div class="field"><label for="aDate">Ngày</label><input type="date" class="inp" id="aDate" name="date" value="${todayISO()}"></div>`,
+    onOk: f => { const amt = parseMoney(val(f, 'amt')); const why = val(f, 'why'); if (amt <= 0) return 'Nhập số tiền lớn hơn 0.'; if (!why) return 'Ghi lý do để sau này đối chiếu.'; const dir = Number(f.querySelector('input[name=dir]:checked').value); addEntry({ customerId: c.id, date: val(f, 'date') || todayISO(), type: 'adjust', amount: dir * amt, note: why }); save(); render(); toast('Đã ghi điều chỉnh'); },
+  });
+};
+ACT.delEntry = async el => {
+  const e = S.entries.find(x => x.id === el.dataset.id); if (!e) return;
+  const ok = await confirmBox('Xoá dòng này?', `${esc(entryLabel(e))} ${money(e.amount, true)} ngày ${fmtDate(e.date)} sẽ bị xoá khỏi sổ nợ.`, 'Xoá dòng', true);
+  if (!ok) return; S.entries = S.entries.filter(x => x.id !== e.id); save(); render(); toast('Đã xoá dòng');
+};
+
+/* =====================================================================
+   HÀNG QUAY ĐẦU
+   ===================================================================== */
+function vReturns() {
+  const counts = { waiting: 0, sent: 0, back: 0, done: 0 };
+  S.warranty.forEach(w => counts[wTabOf(w)]++);
+  const tabs = Object.keys(W_TAB).map(k => `<button role="tab" aria-selected="${UI.wTab === k}" data-act="wTab" data-tab="${k}">${W_TAB[k]} <span class="n">${counts[k]}</span></button>`).join('');
+  return header({ title: 'Hàng quay đầu', actions: `<button class="btn" data-act="newQD">${icon('plus')}Ghi nhận món</button>` })
+    + `<div class="card"><div class="tabs" role="tablist">${tabs}</div><div id="wBody"></div></div>
+    <p class="sub" style="margin:0">Hàng quay đầu không làm thay đổi nợ của khách. Khi hãng nhận bảo hành, chuyến sau giao hàng đổi; khi hãng từ chối, trả lại món đó cho khách.</p>`;
+}
+function paintReturns() {
+  const tab = UI.wTab; const T = todayISO();
+  let list = S.warranty.filter(w => wTabOf(w) === tab);
+  list.sort((a, b) => tab === 'done' ? (a.doneDate < b.doneDate ? 1 : -1) : (a.receivedDate < b.receivedDate ? -1 : 1));
+  UI.wSel.forEach(id => { if (!list.some(w => w.id === id)) UI.wSel.delete(id); });
+  const groups = new Map();
+  list.forEach(w => { const k = w.brandId || ''; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(w); });
+  const rowHTML = w => {
+    const c = custOf(w.customerId); const b = brandOf(w.brandId); const days = wDays(w);
+    const late = (w.status === 'waiting' || w.status === 'sent') && days >= WARRANTY_LATE;
+    const selectable = tab === 'waiting' && b && b.accepts;
+    let acts = '';
+    if (w.status === 'waiting') acts = b && b.accepts ? `<button class="btn sm" data-act="wDo" data-to="sent" data-id="${w.id}">Gửi hãng</button>` : `<button class="btn sm" data-act="wDo" data-to="rejected" data-id="${w.id}">Trả lại khách</button>`;
+    if (w.status === 'sent') acts = `<button class="btn sm" data-act="wDo" data-to="accepted" data-id="${w.id}">${icon('check')}Hãng nhận</button><button class="btn sm danger" data-act="wDo" data-to="rejected" data-id="${w.id}">Hãng từ chối</button>`;
+    if (w.status === 'accepted' || w.status === 'rejected') acts = `<button class="btn sm" data-act="wDo" data-to="done" data-id="${w.id}">${icon('check')}Đã giao cho khách</button>`;
+    if (w.status !== 'waiting') acts += `<button class="icon-btn" data-act="wUndo" data-id="${w.id}" aria-label="Hoàn tác bước vừa rồi" title="Hoàn tác">${icon('undo')}</button>`;
+    const stepTxt = { waiting: `nhận ${fmtDate(w.receivedDate)}`, sent: `gửi hãng ${fmtDate(w.sentDate)}`, accepted: `hãng nhận ${fmtDate(w.resolvedDate)} · cần giao hàng đổi`, rejected: `${w.sentDate ? 'hãng từ chối' : 'không gửi hãng'} ${fmtDate(w.resolvedDate)} · cần trả lại khách`, done: `${w.outcome === 'exchanged' ? 'đã giao hàng đổi' : 'đã trả lại khách'} ${fmtDate(w.doneDate)}` }[w.status];
+    return `<div class="w-row"><span class="cb">${selectable ? `<input type="checkbox" data-wsel="${w.id}" ${UI.wSel.has(w.id) ? 'checked' : ''} aria-label="Chọn ${esc(w.name)}">` : ''}</span>
+      <div class="w-n" style="min-width:0"><div class="nm">${esc(w.name)} × ${w.qty}</div><div class="sub">${w.defect ? esc(w.defect) + ' · ' : ''}${stepTxt}</div></div>
+      <div class="w-k" style="min-width:0">${c ? `<a href="#cust/${c.id}" data-go="cust/${c.id}" style="font-weight:600;text-decoration:none">${esc(c.name)}</a> ${areaTag(c.areaId)}` : '?'}</div>
+      <div class="w-v num">${w.value ? money(w.value) : '<span class="muted">—</span>'}</div>
+      <div class="w-d">${chip(`${days} ngày`, w.status === 'done' || w.status === 'accepted' || w.status === 'rejected' ? '' : days >= 30 ? 'debt' : late ? 'wait' : '')}</div>
+      <div class="acts">${acts}</div></div>`;
+  };
+  const sel = UI.wSel.size;
+  $('#wBody').innerHTML = (tab === 'waiting' && list.some(w => (brandOf(w.brandId) || {}).accepts) ? `<div class="bulk"><span class="sub" style="color:var(--ink)">${sel ? `Đã chọn <b>${sel}</b> món` : 'Tick các món mang đi gửi hãng cùng lúc'}</span><button class="btn sm primary" data-act="wBulk" ${sel ? '' : 'disabled'}>${icon('truck')}Đánh dấu đã gửi hãng</button></div>` : '')
+    + (list.length ? [...groups.entries()].map(([bid, ws]) => { const b = brandOf(bid); return `<div class="brand-h"><h3>${esc(b ? b.name : 'Chưa chọn hãng')}</h3>${b ? (b.accepts ? chip('Nhận quay đầu', 'paid') : chip('Không nhận quay đầu', 'debt')) : ''}<span class="sub">${ws.length} món</span></div>${ws.map(rowHTML).join('')}`; }).join('')
+      : `<div class="empty">${{ waiting: 'Không có món nào chờ gửi hãng.', sent: 'Không có món nào đang ở hãng.', back: 'Không có món nào cần giao lại khách.', done: 'Chưa có món nào xử lý xong.' }[tab]}</div>`);
+}
+afterRender.returns = () => {
+  paintReturns();
+  $('#wBody').addEventListener('change', e => { const id = e.target.dataset.wsel; if (!id) return; e.target.checked ? UI.wSel.add(id) : UI.wSel.delete(id); paintReturns(); });
+};
+ACT.wTab = el => { UI.wTab = el.dataset.tab; UI.wSel.clear(); render(); };
+ACT.wDo = el => {
+  const w = S.warranty.find(x => x.id === el.dataset.id); if (!w) return;
+  const to = el.dataset.to; wSet(w, to); save();
+  toast({ sent: 'Đã chuyển sang Đã gửi hãng', accepted: 'Hãng nhận – chờ giao hàng đổi', rejected: 'Chuyển sang chờ trả lại khách', done: 'Đã xong' }[to]);
+  render();
+};
+ACT.wUndo = el => { const w = S.warranty.find(x => x.id === el.dataset.id); if (!w) return; wUndo(w); save(); toast('Đã hoàn tác'); render(); };
+ACT.wBulk = () => { const n = UI.wSel.size; UI.wSel.forEach(id => { const w = S.warranty.find(x => x.id === id); if (w && w.status === 'waiting') wSet(w, 'sent'); }); UI.wSel.clear(); save(); toast(`Đã gửi hãng ${n} món`); render(); };
+ACT.newQD = () => {
+  if (!S.customers.length) { toast('Cần thêm khách hàng trước'); return; }
+  openDialog({
+    title: 'Ghi nhận hàng quay đầu', okLabel: 'Ghi nhận',
+    body: `<div class="field"><label for="qCust">Khách hàng</label><select class="inp" id="qCust" name="cust"><option value="">— Chọn khách —</option>${[...S.customers].sort((a, b) => a.name.localeCompare(b.name, 'vi')).map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select></div>${qdFields()}<div class="field"><label for="qDate">Ngày nhận</label><input type="date" class="inp" id="qDate" name="date" value="${todayISO()}"></div>`,
+    onOpen: bindBrandSelect,
+    onOk: f => {
+      const cid = val(f, 'cust'); if (!cid) return 'Chọn khách hàng.';
+      const name = val(f, 'name'); if (!name) return 'Nhập tên hàng.';
+      const b = readBrand(f); if (b.err) return b.err;
+      S.warranty.push({ id: uid(), customerId: cid, name, brandId: b.id, qty: Math.max(1, parseInt(val(f, 'qty'), 10) || 1), value: parseMoney(val(f, 'value')), defect: val(f, 'defect'), status: 'waiting', outcome: null, receivedDate: val(f, 'date') || todayISO(), tripId: null, stopId: null, sentDate: null, resolvedDate: null, doneDate: null, doneTripId: null, doneStopId: null, prevStatus: null });
+      UI.wTab = 'waiting'; save(); render(); toast('Đã ghi nhận món quay đầu');
+    },
+  });
+};
+
+/* =====================================================================
+   CÀI ĐẶT
+   ===================================================================== */
+function vSettings() {
+  const usedArea = id => S.customers.some(c => c.areaId === id);
+  const usedBrand = id => S.warranty.some(w => w.brandId === id);
+  const me = currentUser();
+  return header({ title: 'Cài đặt' })
+    + `<div class="card"><div class="card-h"><h2>Tài khoản đang đăng nhập</h2></div><div class="card-b" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span class="avatar" aria-hidden="true">${esc(initials(me.name))}</span><div style="flex:1 1 200px;min-width:0"><div style="font-weight:600">${esc(me.name)}</div><div class="sub">${esc(me.ident)} · ${ACC.users.length} tài khoản trên máy này</div></div><button class="btn" data-act="logout">${icon('logout')}Đăng xuất</button></div></div>
+    <div class="grid-2">
+      <div class="card"><div class="card-h"><h2>Đại lý</h2></div><div class="card-b form-grid">
+        <div class="field full"><label for="sName">Tên đại lý (in trên phiếu)</label><input class="inp" id="sName" value="${esc(S.settings.shopName)}"></div>
+        <div class="field full"><label for="sStale">Cảnh báo khách lâu chưa trả sau (ngày)</label><input class="inp" id="sStale" type="number" min="1" value="${S.settings.staleDays}" inputmode="numeric"></div>
+      </div></div>
+      <div class="card"><div class="card-h"><h2>Sao lưu dữ liệu</h2></div><div class="card-b" style="display:flex;flex-direction:column;gap:12px">
+        <p style="margin:0;color:var(--ink-2)">Sổ chỉ lưu trên trình duyệt của máy này. Xuất file sao lưu thường xuyên; muốn dùng trên máy khác thì nhập file đó vào.</p>
+        <div class="sub">${S.settings.lastBackup ? 'Sao lưu gần nhất: ' + fmtDate(S.settings.lastBackup) : 'Chưa sao lưu lần nào.'}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" data-act="exportData">${icon('download')}Xuất file sao lưu</button><label class="btn" for="importFile" style="cursor:pointer">${icon('upload')}Nhập file sao lưu</label><input type="file" id="importFile" accept=".json,application/json" hidden></div>
+      </div></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><div class="card-h"><h2>Tuyến giao hàng</h2><button class="btn sm" data-act="editArea">${icon('plus')}Thêm tuyến</button></div><div class="list">${S.areas.map(a => `<div class="li row2"><span class="area">${esc(a.code)}</span><div class="grow">${esc(a.name)}<div class="sub">${S.customers.filter(c => c.areaId === a.id).length} khách</div></div><button class="icon-btn" data-act="editArea" data-id="${a.id}" aria-label="Sửa tuyến">${icon('edit')}</button>${usedArea(a.id) ? '' : `<button class="icon-btn" data-act="delArea" data-id="${a.id}" aria-label="Xoá tuyến">${icon('trash')}</button>`}</div>`).join('') || '<div class="empty">Chưa có tuyến.</div>'}</div></div>
+      <div class="card"><div class="card-h"><h2>Hãng và chính sách quay đầu</h2><button class="btn sm" data-act="editBrand">${icon('plus')}Thêm hãng</button></div><div class="list">${S.brands.map(b => `<div class="li row2"><div class="grow"><div class="nm">${esc(b.name)}</div><div style="margin-top:4px">${b.accepts ? chip('Nhận quay đầu', 'paid') : chip('Không nhận quay đầu', 'debt')}</div></div><button class="icon-btn" data-act="editBrand" data-id="${b.id}" aria-label="Sửa hãng">${icon('edit')}</button>${usedBrand(b.id) ? '' : `<button class="icon-btn" data-act="delBrand" data-id="${b.id}" aria-label="Xoá hãng">${icon('trash')}</button>`}</div>`).join('') || '<div class="empty">Chưa có hãng. Hãng được thêm khi ghi nhận hàng quay đầu.</div>'}</div></div>
+    </div>
+    <div class="card"><div class="card-h"><h2>Dữ liệu</h2></div><div class="card-b" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      ${S.settings.isSample ? `<button class="btn primary" data-act="startReal">Xoá dữ liệu mẫu, bắt đầu sổ thật</button>` : `<button class="btn" data-act="loadSample">Xem dữ liệu mẫu</button>`}
+      <button class="btn danger" data-act="wipe">${icon('trash')}Xoá toàn bộ dữ liệu</button>
+      <span class="sub">${S.customers.length} khách · ${S.trips.length} chuyến · ${S.entries.length} dòng sổ nợ</span>
+    </div></div>`;
+}
+afterRender.settings = () => {
+  $('#sName').addEventListener('input', e => { S.settings.shopName = e.target.value.trim() || SHOP; $('#brandName').textContent = S.settings.shopName; persist(); });
+  $('#sStale').addEventListener('input', e => { const n = parseInt(e.target.value, 10); if (n > 0) { S.settings.staleDays = n; persist(); } });
+  $('#importFile').addEventListener('change', e => { const f = e.target.files && e.target.files[0]; if (f) importFile(f); e.target.value = ''; });
+};
+ACT.editArea = el => {
+  const a = el.dataset.id ? areaOf(el.dataset.id) : null;
+  openDialog({
+    title: a ? 'Sửa tuyến' : 'Thêm tuyến', body: `<div class="form-grid"><div class="field"><label for="aCode">Mã tuyến</label><input class="inp" id="aCode" name="code" value="${esc(a ? a.code : '')}" placeholder="VD: TĐ" maxlength="6"></div><div class="field"><label for="aName">Tên tuyến</label><input class="inp" id="aName" name="name" value="${esc(a ? a.name : '')}" placeholder="VD: Tuyến Thủ Đức"></div></div>`,
+    onOk: f => { const code = val(f, 'code'), name = val(f, 'name') || ('Tuyến ' + val(f, 'code')); if (!code) return 'Nhập mã tuyến.'; if (a) Object.assign(a, { code, name }); else S.areas.push({ id: uid(), code, name }); save(); render(); },
+  });
+};
+ACT.delArea = el => { S.areas = S.areas.filter(a => a.id !== el.dataset.id); save(); render(); };
+ACT.editBrand = el => {
+  const b = el.dataset.id ? brandOf(el.dataset.id) : null;
+  openDialog({
+    title: b ? 'Sửa hãng' : 'Thêm hãng', body: `<div class="field"><label for="bName">Tên hãng</label><input class="inp" id="bName" name="name" value="${esc(b ? b.name : '')}"></div><label class="check"><input type="checkbox" name="accepts" ${!b || b.accepts ? 'checked' : ''}><div><b>Hãng nhận hàng quay đầu</b><div class="sub">Bỏ tick nếu hãng không bảo hành; món của hãng này sẽ được đánh dấu trả lại khách.</div></div></label>`,
+    onOk: f => { const name = val(f, 'name'); if (!name) return 'Nhập tên hãng.'; const accepts = f.elements.accepts.checked; if (b) Object.assign(b, { name, accepts }); else S.brands.push({ id: uid(), name, accepts }); save(); render(); },
+  });
+};
+ACT.delBrand = el => { S.brands = S.brands.filter(b => b.id !== el.dataset.id); save(); render(); };
+ACT.loadSample = async () => {
+  if (S.customers.length && !S.settings.isSample) {
+    const ok = await confirmBox('Thay sổ hiện tại bằng dữ liệu mẫu?', 'Sổ đang có dữ liệu thật. Hãy xuất file sao lưu trước; dữ liệu mẫu sẽ thay thế toàn bộ sổ hiện tại.', 'Thay bằng dữ liệu mẫu', true);
+    if (!ok) return;
+  }
+  S = sampleState(); save(); toast('Đã nạp dữ liệu mẫu'); go('', { force: true });
+};
+ACT.startReal = async () => {
+  const ok = await confirmBox('Bắt đầu sổ thật?', 'Toàn bộ dữ liệu mẫu sẽ bị xoá. Sổ mới có sẵn 3 tuyến TĐ, QT, ĐT; bạn thêm khách và nợ hiện có từ sổ giấy.', 'Xoá mẫu, bắt đầu');
+  if (!ok) return; S = emptyState(); save(); toast('Sổ mới đã sẵn sàng'); go('customers', { force: true });
+};
+ACT.wipe = async () => {
+  const ok = await confirmBox('Xoá toàn bộ dữ liệu?', 'Mọi khách hàng, chuyến hàng, sổ nợ và hàng quay đầu trên trình duyệt này sẽ bị xoá. Không thể hoàn tác nếu chưa có file sao lưu.', 'Xoá toàn bộ', true);
+  if (!ok) return; S = emptyState(); save(); toast('Đã xoá dữ liệu'); go('', { force: true });
+};
+
+/* ---------- sao lưu ---------- */
+ACT.exportData = async () => {
+  const name = `huu-thuy-so-cong-no-${todayISO()}.json`;
+  const data = JSON.stringify(S, null, 1);
+  let ok = false;
+  if (HOSTED) {
+    try {
+      ok = await hostedSave(name, data);
+      if (!ok) toast('Trang này không cho tải file. Mở file app trên máy để sao lưu.');
+    } catch (e) { if (e && e.code !== 'declined') toast('Không tải được file sao lưu.'); }
+  } else {
+    try {
+      const url = URL.createObjectURL(new Blob([data], { type: 'application/json' }));
+      const a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2000); ok = true;
+    } catch (e) { toast('Không tải được file sao lưu.'); }
+  }
+  if (ok) { S.settings.lastBackup = todayISO(); save(); toast('Đã xuất file sao lưu'); render(); }
+};
+function importFile(file) {
+  const rd = new FileReader();
+  rd.onload = async () => {
+    let d;
+    try { d = JSON.parse(rd.result); } catch (e) { toast('File không đúng định dạng sao lưu.'); return; }
+    if (!d || d.version !== 1 || !Array.isArray(d.customers) || !Array.isArray(d.entries)) { toast('File không phải bản sao lưu của sổ công nợ.'); return; }
+    const ok = await confirmBox('Nhập file sao lưu?', `File có ${d.customers.length} khách, ${(d.trips || []).length} chuyến, ${d.entries.length} dòng sổ nợ. Dữ liệu hiện tại trên máy này sẽ bị thay thế.`, 'Nhập và thay thế', true);
+    if (!ok) return;
+    S = Object.assign(emptyState(), d); save(); toast('Đã nhập dữ liệu'); go('', { force: true });
+  };
+  rd.readAsText(file);
+}
+
+/* =====================================================================
+   BẢN IN
+   ===================================================================== */
+function printBar(back) {
+  return `<div class="ph no-print"><div class="ph-l"><button class="icon-btn bordered back" data-go="${back}" aria-label="Quay lại">${icon('back')}</button><div><h1>Bản in</h1></div></div><div class="ph-actions">${HOSTED ? '<span class="sub" style="max-width:420px">Bản xem trực tuyến không mở được hộp thoại in. Mở file app trên máy tính để in, hoặc chụp màn hình bản này.</span>' : `<button class="btn primary" data-act="print">${icon('print')}In</button>`}</div></div>`;
+}
+ACT.print = () => window.print();
+function vPrintTrip(id) {
+  const t = tripOf(id); if (!t) return notFound('chuyến này');
+  let tOld = 0, tGoods = 0, tTotal = 0, tPay = 0, tRemain = 0;
+  const rows = t.stops.map((s, i) => {
+    const c = custOf(s.customerId) || {}; const x = stopCalc(t, s);
+    tOld += x.old; tGoods += x.goods; tTotal += x.total; if (s.visited) { tPay += x.pay; tRemain += x.remain; }
+    return `<tr><td class="num">${i + 1}</td><td><b>${esc(c.name)}</b><br><span style="font-size:12px">${esc(c.phone || '')}</span></td><td>${esc((areaOf(c.areaId) || {}).code || '')}</td><td class="num">${grp(x.old)}</td><td class="num">${grp(x.goods)}</td><td class="num"><b>${grp(x.total)}</b> <span style="font-size:12px">(${grp(x.old)})</span></td><td class="num">${s.visited ? grp(x.ret) : ''}</td><td class="num">${s.visited ? grp(x.pay) : ''}</td><td class="num">${s.visited ? grp(x.remain) : ''}</td><td>${esc(s.goodsNote)}</td></tr>`;
+  }).join('');
+  return printBar('trip/' + t.id) + `<div class="paper"><div class="center" style="font-weight:600">${esc(S.settings.shopName)}</div><h2>SỔ CHỐT HÀNG ĐI</h2><div class="center">Chuyến ${esc(t.code)} · Ngày ${fmtDate(t.date)}${t.note ? ' · ' + esc(t.note) : ''}</div>
+    <table><thead><tr><th>#</th><th>Khách hàng</th><th>Tuyến</th><th class="num">Nợ cũ</th><th class="num">Hàng chuyến này</th><th class="num">Tổng nợ (nợ cũ)</th><th class="num">Trả hàng</th><th class="num">Thanh toán</th><th class="num">Nợ lại</th><th>Ghi chú hàng</th></tr></thead><tbody>${rows}</tbody>
+    <tfoot><tr><th></th><th colspan="2">Tổng cộng</th><th class="num">${grp(tOld)}</th><th class="num">${grp(tGoods)}</th><th class="num">${grp(tTotal)}</th><th></th><th class="num">${tPay ? grp(tPay) : ''}</th><th class="num">${tRemain ? grp(tRemain) : ''}</th><th></th></tr></tfoot></table>
+    <div class="meta"><span>Đơn vị: đồng</span><span>In lúc ${new Date().toLocaleString('vi-VN')}</span></div>
+    <div class="sign"><div><b>Người giao hàng</b><br><i style="font-size:12px">(ký, ghi rõ họ tên)</i></div><div><b>Chủ đại lý</b><br><i style="font-size:12px">(ký, ghi rõ họ tên)</i></div></div></div>`;
+}
+function vPrintCust(id) {
+  const c = custOf(id); if (!c) return notFound('khách hàng');
+  let run = 0; const ents = entriesOf(c.id);
+  const rows = ents.map(e => { run += e.amount; const t = e.tripId ? tripOf(e.tripId) : null; return `<tr><td>${fmtDate(e.date)}</td><td>${t ? esc(t.code) : ''}</td><td>${esc(entryLabel(e))}${e.note ? ' – ' + esc(e.note) : ''}</td><td class="num">${e.amount > 0 ? grp(e.amount) : ''}</td><td class="num">${e.amount < 0 ? grp(e.amount) : ''}</td><td class="num"><b>${run < 0 ? '−' : ''}${grp(run)}</b></td></tr>`; }).join('');
+  return printBar('cust/' + c.id) + `<div class="paper"><div class="center" style="font-weight:600">${esc(S.settings.shopName)}</div><h2>BẢN ĐỐI CHIẾU CÔNG NỢ</h2><div class="center">Đến ngày ${fmtDate(todayISO())}</div>
+    <div class="meta"><div>Khách hàng: <b>${esc(c.name)}</b>${c.owner ? ' – ' + esc(c.owner) : ''}<br>Địa chỉ: ${esc(c.address) || '…………………………'}<br>Điện thoại: ${esc(c.phone) || '…………………'}</div><div>Tuyến: ${esc((areaOf(c.areaId) || {}).name || '')}</div></div>
+    <table><thead><tr><th>Ngày</th><th>Chuyến</th><th>Nội dung</th><th class="num">Tăng nợ</th><th class="num">Giảm nợ</th><th class="num">Số dư</th></tr></thead><tbody>${rows || '<tr><td colspan="6" class="blank">Chưa có phát sinh</td></tr>'}</tbody>
+    <tfoot><tr><th colspan="5" style="text-align:right">Số dư nợ đến ngày ${fmtDate(todayISO())}</th><th class="num">${run < 0 ? '−' : ''}${grp(run)}</th></tr></tfoot></table>
+    <div class="meta"><span>Đơn vị: đồng</span></div>
+    <div class="sign"><div><b>Xác nhận của khách hàng</b><br><i style="font-size:12px">(ký, ghi rõ họ tên)</i></div><div><b>Đại lý</b><br><i style="font-size:12px">(ký, ghi rõ họ tên)</i></div></div></div>`;
+}
+
+/* ===== Màn hình đăng nhập / đăng ký / quên mật khẩu ===== */
+ICONS.logout = '<path d="M9 4H5v16h4"/><path d="M14 8l4 4-4 4M18 12H9"/>';
+ICONS.eye = '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>';
+ICONS.lock = '<rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>';
+UI.authRoute = 'login';
+
+function authBrand() {
+  const feats = [
+    ['book', 'Sổ chốt hàng đi', 'Chọn tiệm, nhập tiền hàng. Nợ cũ tự lấy từ sổ, tiệm vượt hạn mức báo đỏ.'],
+    ['cash', 'Phiếu thu tại tiệm', 'Trừ hàng nguyên mác, ghi hàng quay đầu, ra ngay số nợ lại.'],
+    ['ret', 'Hàng quay đầu', 'Theo dõi từ lúc nhận đến khi hãng xử lý xong và giao lại cho khách.'],
+  ];
+  return `<section class="auth-brand">
+    <div class="ab-top"><div class="ab-mark" aria-hidden="true">HT</div><div><div class="ab-name">${esc(S ? S.settings.shopName : SHOP)}</div><div class="ab-sub">Phân phối sỉ phụ tùng xe máy</div></div></div>
+    <div class="ab-hero"><h2>Ghi nợ, thu tiền và chốt chuyến ngay trên điện thoại</h2><p>Thay cho sổ giấy: nợ cũ tự cộng, hàng trả tự trừ, cuối chuyến biết ngay tiền đã thu và nợ còn lại của từng tiệm.</p></div>
+    <ul class="ab-feats">${feats.map(([ic, t, d]) => `<li>${icon(ic)}<div><b>${t}</b><span>${d}</span></div></li>`).join('')}</ul>
+    <div class="ab-foot">Bản mẫu · tài khoản và dữ liệu lưu trên trình duyệt của máy này</div>
+  </section>`;
+}
+const pwField = (id, label, extra = '', side = '') => `<div class="field"><div class="lbl-row"><label for="${id}">${label}</label>${side}</div><div class="pw-wrap"><input class="inp" id="${id}" type="password" ${extra}><button type="button" class="icon-btn" data-act="togglePw" data-for="${id}" aria-label="Hiện mật khẩu">${icon('eye')}</button></div></div>`;
+
+function vLogin() {
+  return `<div class="auth-card">
+    <div><h1>Đăng nhập</h1><p class="sub" style="margin:6px 0 0;font-size:14.5px">Đăng nhập để mở sổ công nợ.</p></div>
+    <form id="loginForm" novalidate>
+      <div class="field"><label for="lgIdent">Email hoặc số điện thoại</label><input class="inp" id="lgIdent" name="ident" autocomplete="username" inputmode="email" autocapitalize="off" spellcheck="false" placeholder="VD: ten@gmail.com hoặc 0908 123 456"></div>
+      ${pwField('lgPw', 'Mật khẩu', 'name="pw" autocomplete="current-password"', '<button type="button" class="link-btn" data-act="authGo" data-to="forgot">Quên mật khẩu?</button>')}
+      <label class="check" style="align-items:center"><input type="checkbox" id="lgRemember" checked> Ghi nhớ đăng nhập trong 30 ngày</label>
+      <div class="auth-err" id="lgErr" role="alert"></div>
+      <button type="submit" class="btn primary lg block">Đăng nhập ${icon('chev')}</button>
+    </form>
+    <div class="auth-alt">Chưa có tài khoản? <button type="button" class="link-btn" data-act="authGo" data-to="register">Đăng ký tài khoản</button></div>
+    <div class="demo-hint"><span>Tài khoản demo: <b>${esc(DEMO.ident)}</b></span><button type="button" class="btn sm" data-act="fillDemo">Điền tài khoản demo</button></div>
+  </div>`;
+}
+function vRegister() {
+  return `<div class="auth-card">
+    <div><h1>Đăng ký tài khoản</h1><p class="sub" style="margin:6px 0 0;font-size:14.5px">Tài khoản dùng chung sổ công nợ của đại lý trên máy này.</p></div>
+    <form id="regForm" novalidate>
+      <div class="field"><label for="rgName">Họ và tên</label><input class="inp" id="rgName" name="name" autocomplete="name" placeholder="VD: Nguyễn Văn Hùng"></div>
+      <div class="field"><label for="rgIdent">Email hoặc số điện thoại</label><input class="inp" id="rgIdent" name="ident" autocomplete="username" inputmode="email" autocapitalize="off" spellcheck="false" placeholder="Dùng để đăng nhập"></div>
+      <div class="form-grid">${pwField('rgPw', 'Mật khẩu', `name="pw" autocomplete="new-password" placeholder="Tối thiểu ${PW_MIN} ký tự"`)}${pwField('rgPw2', 'Nhập lại mật khẩu', 'name="pw2" autocomplete="new-password"')}</div>
+      <div class="auth-err" id="rgErr" role="alert"></div>
+      <button type="submit" class="btn primary lg block">Tạo tài khoản ${icon('chev')}</button>
+    </form>
+    <div class="auth-alt">Đã có tài khoản? <button type="button" class="link-btn" data-act="authGo" data-to="login">Đăng nhập</button></div>
+  </div>`;
+}
+function vForgot() {
+  return `<div class="auth-card">
+    <div><h1>Quên mật khẩu</h1></div>
+    <div class="banner">${icon('info')}<div class="txt">Bản mẫu chưa gửi được mã xác thực qua SMS hoặc email, vì chưa có máy chủ. Khi làm web thật, bạn nhập số điện thoại hoặc email để nhận mã và đặt lại mật khẩu.</div></div>
+    <p style="margin:0;color:var(--ink-2)">Trong lúc dùng thử, hãy đăng nhập bằng tài khoản demo hoặc đăng ký một tài khoản mới.</p>
+    <button type="button" class="btn primary lg block" data-act="authGo" data-to="login">${icon('back')}Quay lại đăng nhập</button>
+    <button type="button" class="btn lg block" data-act="authGo" data-to="register">Đăng ký tài khoản mới</button>
+  </div>`;
+}
+
+function renderAuth() {
+  $('#shell').hidden = true;
+  const a = $('#auth'); a.hidden = false;
+  const v = { login: vLogin, register: vRegister, forgot: vForgot }[UI.authRoute] || vLogin;
+  a.innerHTML = `<div class="auth">${authBrand()}<section class="auth-main">${v()}</section></div>`;
+  document.title = { login: 'Đăng nhập', register: 'Đăng ký', forgot: 'Quên mật khẩu' }[UI.authRoute] + ' · ' + SHOP;
+  const lf = $('#loginForm');
+  if (lf) lf.addEventListener('submit', e => {
+    e.preventDefault();
+    const ident = $('#lgIdent').value, pw = $('#lgPw').value, err = $('#lgErr');
+    if (!ident.trim() || !pw) { err.textContent = 'Nhập email hoặc số điện thoại và mật khẩu.'; return; }
+    const u = checkLogin(ident, pw);
+    if (!u) { err.textContent = 'Email, số điện thoại hoặc mật khẩu không đúng.'; $('#lgPw').value = ''; $('#lgPw').focus(); return; }
+    startSession(u, $('#lgRemember').checked);
+    enterApp(`Xin chào, ${u.name}`);
+  });
+  const rf = $('#regForm');
+  if (rf) rf.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = $('#rgName').value.trim(), ident = normIdent($('#rgIdent').value), pw = $('#rgPw').value, pw2 = $('#rgPw2').value, err = $('#rgErr');
+    const fail = (msg, id) => { err.textContent = msg; if (id) $('#' + id).focus(); };
+    if (!name) return fail('Nhập họ và tên.', 'rgName');
+    if (!identKind(ident)) return fail('Nhập email đúng dạng (ten@gmail.com) hoặc số điện thoại 10 số bắt đầu bằng 0.', 'rgIdent');
+    if (ACC.users.some(u => u.ident === ident)) return fail('Email hoặc số điện thoại này đã có tài khoản. Bấm Đăng nhập để vào.', 'rgIdent');
+    if (pw.length < PW_MIN) return fail(`Mật khẩu cần tối thiểu ${PW_MIN} ký tự.`, 'rgPw');
+    if (pw !== pw2) return fail('Hai lần nhập mật khẩu chưa khớp.', 'rgPw2');
+    const u = makeUser(name, ident, pw); ACC.users.push(u); saveAccounts();
+    startSession(u, true);
+    enterApp('Đã tạo tài khoản. Xin chào, ' + u.name);
+  });
+  $$('#auth form').forEach(f => f.addEventListener('input', () => $$('.auth-err', f).forEach(x => { x.textContent = ''; })));
+  const first = $('#auth input:not([type=checkbox])');
+  if (first && window.matchMedia('(min-width: 900px)').matches) first.focus();
+  window.scrollTo(0, 0);
+}
+function enterApp(msg) {
+  UI.authRoute = 'login';
+  $('#auth').innerHTML = '';
+  document.title = SHOP;
+  render(); window.scrollTo(0, 0);
+  toast(msg);
+}
+ACT.authGo = el => { UI.authRoute = el.dataset.to; renderAuth(); };
+ACT.fillDemo = () => { $('#lgIdent').value = DEMO.ident; $('#lgPw').value = DEMO.password; $('#lgErr').textContent = ''; };
+ACT.togglePw = el => {
+  const i = document.getElementById(el.dataset.for); if (!i) return;
+  const show = i.type === 'password'; i.type = show ? 'text' : 'password';
+  el.setAttribute('aria-label', show ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'); el.classList.toggle('on', show);
+};
+ACT.logout = async () => {
+  const ok = await confirmBox('Đăng xuất?', 'Dữ liệu sổ vẫn giữ nguyên trên máy này. Lần sau cần đăng nhập lại để mở sổ.', 'Đăng xuất');
+  if (!ok) return;
+  endSession(); UI.draft = null; UI.authRoute = 'login'; render(); toast('Đã đăng xuất');
+};
+function userBlock() {
+  const u = currentUser(); if (!u) return '';
+  return `<div class="me"><span class="avatar" aria-hidden="true">${esc(initials(u.name))}</span><div class="grow"><div class="nm">${esc(u.name)}</div><div class="sub">${esc(u.ident)}</div></div><button class="icon-btn" data-act="logout" title="Đăng xuất" aria-label="Đăng xuất">${icon('logout')}</button></div>`;
+}
+
+/* ---------- khởi động ---------- */
+function boot() {
+  loadAccounts();
+  loadSession();
+  S = load();
+  if (!S) { S = sampleState(); save(); }
+  if (!HOSTED && location.hash.length > 1) UI.route = decodeURIComponent(location.hash.slice(1));
+  if (!HOSTED) { try { history.replaceState({ r: UI.route }, '', '#' + UI.route); } catch (e) { /* bỏ qua */ } }
+  render();
+}
+boot();
+
+})();
+</script>
+</body>
+</html>
